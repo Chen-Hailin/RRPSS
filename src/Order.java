@@ -3,7 +3,6 @@ import java.util.ArrayList;
 /**
 * Store information of an order.
 */
-
 class Order {
     private Reservation reservation;
     private Staff staff;
@@ -53,7 +52,20 @@ class Order {
         return menuItems.remove(menuItem);
     }
     
+    /**
+    * Print the order details (table number, timestamp, etc).    
+    */
     public void printInvoice() {
-    
+        reservation.check();
+        
+        // TODO: append the revenue to revenue report list. 
+        // Will implement after the Revenue data structure is done
+        for(MenuItem menuItem: menuItems) {
+            
+        }
+        
+        for(PromotionSet promotionSet: promotionSets) {
+            
+        }
     }
 }
