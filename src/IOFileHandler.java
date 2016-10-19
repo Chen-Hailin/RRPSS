@@ -7,8 +7,6 @@ class IOFileHandler {
 
     /**
     * return the object to read from the file which store an object
-    * to use, just do :
-    * SomeClass smth = (SomeClass) readFileObject(fileName).readObject();
     */
     public ObjectInputStream readFileObject (String fileName) {
         FileInputStream fin;
@@ -28,8 +26,6 @@ class IOFileHandler {
 
     /**
     * return the object to write the file which will store the object data
-    * to use, just do :
-    * writeFileObject(fileName).writeObject(someObject);
     */
     public ObjectOutputStream writeFileObject (String fileName) {
         FileOutputStream fout;
@@ -49,6 +45,9 @@ class IOFileHandler {
 
     /**
     * store the object passed to the corresponding file
+    * example :
+    * IOFileHandler io = new IOFileHandler();
+    * io.writeObj(fileName, smth);
     */
     public void writeObj (String fileName, Object obj) {
         try {
@@ -60,6 +59,9 @@ class IOFileHandler {
 
     /**
     * return the object that going to be read
+    * example :
+    * IOFileHandler io = new IOFileHandler();
+    * someClass smth = (SomeClass) io.readObj(fileName);
     */
     public Object readObj (String fileName) {
         try {
