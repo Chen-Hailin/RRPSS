@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 /**
 * Stores the information of a reservation.
 */
-
 class Reservation {
     private Date arrivalTime;
     private int numberOfPax;
@@ -52,5 +51,6 @@ class Reservation {
         System.out.println("Name: " + getName());
         System.out.println("Number of people: " + getNumberOfPax());
         System.out.println("Contact number: " + getContactNumber());
+        System.out.println("Table number: " + table.getTableNumber());
     }
 }
