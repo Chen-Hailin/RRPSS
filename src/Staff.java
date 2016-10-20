@@ -1,7 +1,7 @@
 /**
 * Stores information about the staff.
 */
-public class Staff {
+public class Staff implements Serializable {
     private int employeeID;
     private String name;
     private String gender;
