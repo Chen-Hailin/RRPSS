@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 /**
 * Stores the information of a reservation.
 */
-class Reservation {
+class Reservation implements Serializable {
     private Date arrivalTime;
     private int numberOfPax;
     private String name;
