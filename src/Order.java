@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
 * Store information of an order.
 */
-class Order {
+class Order implements Serializable {
     private Reservation reservation;
     private Staff staff;
     private List<PromotionSet> promotionSets;    
