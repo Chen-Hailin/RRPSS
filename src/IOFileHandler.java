@@ -6,7 +6,8 @@ import java.io.*;
 class IOFileHandler {
 
     /**
-    * return the object to read from the file which store an object
+    * @param fileName the file name
+    * @return the object which read from the file
     */
     public ObjectInputStream readFileObject (String fileName) {
         FileInputStream fin;
@@ -25,7 +26,8 @@ class IOFileHandler {
     }
 
     /**
-    * return the object to write the file which will store the object data
+    * @param fileName the file name
+    * @return the object which write to the file
     */
     public ObjectOutputStream writeFileObject (String fileName) {
         FileOutputStream fout;
@@ -44,7 +46,8 @@ class IOFileHandler {
     }
 
     /**
-    * store the object passed to the corresponding file
+    * @param fileName the file name
+    * @param obj a serializable object which is going to be stored
     * example :
     * IOFileHandler io = new IOFileHandler();
     * io.writeObj(fileName, smth);
@@ -58,7 +61,8 @@ class IOFileHandler {
     }
 
     /**
-    * return the object that going to be read
+    * @param fileName the file name
+    * @return the object that going to be read
     * example :
     * IOFileHandler io = new IOFileHandler();
     * someClass smth = (SomeClass) io.readObj(fileName);
