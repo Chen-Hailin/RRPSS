@@ -2,7 +2,7 @@
 public class Rev_report {
 private Menu_Item[] mi_sold;
 private int date;
-private Promotion_set[] set_sold;
+private Promo_Set[] set_sold;
 private double revenue;
 
 public Menu_Item[] getGrades(){
@@ -17,7 +17,7 @@ public int getDate(){
 public void setDate(){
 	this.date = date;
 }
-public Promo_set[] getSetSold(){
+public Promo_Set[] getSetSold(){
 	return set_sold;
 }
 public void setSetSold(Promo_Set[] set_sold){
