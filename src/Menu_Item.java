@@ -1,5 +1,3 @@
-package assignment2002;
-
 import java.lang.String;
 public class Menu_Item {
 	private static int maxID = 1;

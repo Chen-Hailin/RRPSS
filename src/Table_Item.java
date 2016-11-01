@@ -19,9 +19,4 @@ public class Table_Item {
 	public int getMax_pax(){
 		return this.Max_pax;
 	}
-	public static void main(String[] args){
-		Table_Item t1 = new Table_Item(0, 10);
-		System.out.println(t1.getID()+":"+t1.getMax_pax()+":"+t1.getStatus());
-		
-	}
 }

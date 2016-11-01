@@ -1,6 +1,3 @@
-package assignment2002;
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
