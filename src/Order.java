@@ -6,8 +6,8 @@ import java.util.ArrayList;
 class Order implements Serializable {
     private Reservation reservation;
     private Staff staff;
-    private List<PromotionSet> promotionSets;    
-    private List<MenuItem> menuItems;
+    private List<int> promotionSetIDs;
+    private List<int> menuItemIDs;
     
     /**
     * Constructor.
@@ -23,33 +23,33 @@ class Order implements Serializable {
     }
     
     /**
-    * Add an order from the promotion sets.
+    * Add an order from the promotion set id.
     */
-    public void addOrder(PromotionSet promotionSet) {
-        promotionSets.add(promotionSet);
+    public void addPromotionSet(int promotionSetID) {
+        promotionSetIDs.add(promotionSetID);
     }   
     
     /**
-    * Add an order from the menu items.
+    * Add an order from the menu item id.
     */
-    public void addOrder(MenuItem menuItem) {
-        menuItems.add(menuItem);
+    public void addMenuItem(int menuItemID) {
+        menuItemIDs.add(menuItemID);
     }
     
     /**
     * Remove a promotion set order.
     * @return False if the specified item is not in the order, otherwise Yes
     */
-    public boolean removeOrder(PromotionSet promotionSet) {
-        return promotionSets.remove(promotionSet);
+    public boolean removePromotionSet(int promotionSetID) {
+        return promotionSetIDs.remove(promotionSetID);
     }
     
     /**
     * Remove a menu item order.
     * @return False if the specified item is not in the order, otherwise Yes
     */
-    public boolean removeOrder(MenuItem menuItem) {
-        return menuItems.remove(menuItem);
+    public boolean removeMenuItem(int menuItemID) {
+        return menuItemIDs.remove(menuItemID);
     }
     
     /**
@@ -68,4 +68,4 @@ class Order implements Serializable {
             
         }
     }
-}
+}   
