@@ -9,21 +9,21 @@ class Reservation implements Serializable {
     private int numberOfPax;
     private String name;
     private String contactNumber;
-    private Table table;
+    private int tableID;
     
     /**
     * Constructor.
     * Create a new reservation with the information provided, and set the reserved table to "reserved".
     * Reservation is uniquely identified by the contact number.
     */
-    public Reservation(Date arrivalTime, int numberOfPax, String name, String contactNumber, Table table) {
+    public Reservation(Date arrivalTime, int numberOfPax, String name, String contactNumber, int tableID) {
         this.arrivalTime     = arrivalTime;
         this.numberOfPax     = numberOfPax;
         this.name            = name;
         this.contactNumber   = contactNumber;
-        this.table           = table;
+        this.tableID         = tableID;
         
-        table.setStatus("reserved");
+        tableList.changeStatus("reserved");
     }
     
     private Date getArrivalTime() {
@@ -42,6 +42,10 @@ class Reservation implements Serializable {
         return contactNumber;
     }
     
+    public int getTableID() {
+        return tableID;
+    }
+    
     /**
     * Check the reservation status.
     */
@@ -51,6 +55,6 @@ class Reservation implements Serializable {
         System.out.println("Name: " + getName());
         System.out.println("Number of people: " + getNumberOfPax());
         System.out.println("Contact number: " + getContactNumber());
-        System.out.println("Table number: " + table.getTableNumber());
+        System.out.println("Table number: " + getTableID());
     }
 }
