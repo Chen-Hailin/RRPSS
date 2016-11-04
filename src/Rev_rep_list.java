@@ -1,26 +1,51 @@
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Rev_rep_list  {
 	
-	private ArrayList<Order> orders = new ArrayList<Order>(); 
+private ArrayList<Order> items;
 	
-	public Rev_rep_list (ArrayList<Order> orders){
-		this.orders = orders;
-	}
 	
-	public void list(Menu_Item menuItem,Promo_Set promotionSet){
-	for (Order o : orders){
+	public Rev_rep_list() {
 		
-		System.out.print(o.getDate());
-		System.out.print(o.addOrder(menuItem));
-		System.out.print(o.addOrder(promotionSet));
-		System.out.print(o.getTotalPrice());
+		 items = new ArrayList<Order>();
+	}
+	private Date date;
+	private int Menu_ID;
+	private double TotalPrice;
+	public Order getItemId(){
+		for(Order item: items)
+		{
+				return item.getItemID();
+				
+		}
+		
+	}
+	public Order getDate(){
+		for(Order item: items)
+		{
+				return item.getDate();
+		}
+	}
+	public Order getTotalPrice(){
+		for(Order item: items)
+		{
+				return item.getTotalPrice();
+		}
+	}
+	public void list(Date date,int MenuId, double totalPrice){
+		
+		Rev_rep_list rev = new Rev_rep_list();
+		
+		System.out.print(rev.getDate());
+		System.out.print(rev.getItemId());
+		System.out.print(rev.getTotalPrice());
 		
 		
 		
 	}
 	
 }
-}
+
