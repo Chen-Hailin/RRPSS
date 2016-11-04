@@ -12,9 +12,7 @@ private ArrayList<Order> items;
 		
 		 items = new ArrayList<Order>();
 	}
-	private Date date;
-	private int Menu_ID;
-	private double TotalPrice;
+	
 	public Order getItemId(){
 		for(Order item: items)
 		{
