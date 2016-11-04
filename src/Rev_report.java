@@ -1,15 +1,22 @@
+import java.util.ArrayList;
 
 public class Rev_report {
 private Rev_rep_list[] item_sold;
 private int month;
-private Rev_rep_list[] set_sold;
 private double revenue;
 
+private ArrayList<Rev_rep_list> items;
+
+
+public Rev_report() {
+	
+	 items = new ArrayList<Rev_rep_list>();
+}
 
 public Rev_rep_list[] getitemsold(){
 	return item_sold;
 }
-public void setitem(Rev_rep_list[] item_sold){
+public void setitemSold(Rev_rep_list[] item_sold){
 	this.item_sold = item_sold;
 }
 public int getMonth(){
@@ -18,12 +25,7 @@ public int getMonth(){
 public void setMonth(int Month){
 	this.month = Month;
 }
-public Rev_rep_list[] getsetsold(){
-	return set_sold;
-}
-public void setSetSold(Rev_rep_list[] set_sold){
-	this.set_sold = set_sold;
-}
+
 public double getRevenue(){
 	return revenue;
 }
