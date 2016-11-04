@@ -10,13 +10,13 @@ public class Rev_rep_list  {
 		this.orders = orders;
 	}
 	
-	public void list(){
+	public void list(Menu_Item menuItem,Promo_Set promotionSet){
 	for (Order o : orders){
 		
 		System.out.print(o.getDate());
-		System.out.print(o.getmenuID());
-		System.out.print(o.getpromoID());
-		System.out.print(o.totalprice());
+		System.out.print(o.addOrder(menuItem));
+		System.out.print(o.addOrder(promotionSet));
+		System.out.print(o.getTotalPrice());
 		
 		
 		
