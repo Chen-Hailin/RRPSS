@@ -1,26 +1,27 @@
 
 public class Rev_report {
-private Menu_Item[] mi_sold;
-private int date;
-private Promo_Set[] set_sold;
+private Rev_rep_list[] item_sold;
+private int month;
+private Rev_rep_list[] set_sold;
 private double revenue;
 
-public Menu_Item[] getGrades(){
-	return mi_sold;
+
+public Rev_rep_list[] getitemsold(){
+	return item_sold;
 }
-public void setGrades(Menu_Item[] mi_sold){
-	this.mi_sold = mi_sold;
+public void setGrades(Rev_rep_list[] item_sold){
+	this.item_sold = item_sold;
 }
-public int getDate(){
-	return date;
+public int getMonth(){
+	return month;
 }
-public void setDate(){
-	this.date = date;
+public void setMonth(int Month){
+	this.month = Month;
 }
-public Promo_Set[] getSetSold(){
+public Rev_rep_list[] getsetsold(){
 	return set_sold;
 }
-public void setSetSold(Promo_Set[] set_sold){
+public void setSetSold(Rev_rep_list[] set_sold){
 	this.set_sold = set_sold;
 }
 public double getRevenue(){
@@ -29,15 +30,33 @@ public double getRevenue(){
 public void setRevenue(double revenue){
 this.revenue = revenue;
 }
-public void add_report(Menu_Item[] i){
+public void add_item(){
 	
 }
 
-public void add_report(Promo_Set[] s){
+public void add_set(){
 	
 }
-
+public double total(){
+return revenue;
+}
 public void print_report(){
+	 Rev_report rep1 = new Rev_report();
+	System.out.println("====== Sales Revenue report by Month ======");
+	
+			System.out.printf("Jan:" + rep1.total());
+			System.out.printf("Feb:" + rep1.total());
+			System.out.printf("Mar:" + rep1.total());
+			System.out.printf("Apr:" + rep1.total());
+			System.out.printf("May:" + rep1.total());
+			System.out.printf("Jun:" + rep1.total());
+			System.out.printf("Jul:" + rep1.total());
+			System.out.printf("Aug:" + rep1.total());
+			System.out.printf("Sept:" + rep1.total());
+			System.out.printf("Oct:" + rep1.total());
+			System.out.printf("Nov:" + rep1.total());
+			System.out.printf("Dec:" + rep1.total());
+		
 }
 
 }
