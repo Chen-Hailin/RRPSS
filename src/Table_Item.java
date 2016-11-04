@@ -1,5 +1,5 @@
 import java.lang.String;
-public class Table_Item {
+public class Table_Item implements Serializable{
 	private int ID, Max_pax;
 	private String Status; 
 	public Table_Item(int ID, int Max_pax){

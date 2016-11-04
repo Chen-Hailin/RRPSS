@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Menu {
+public class Menu implements Serializable{
 	private ArrayList <Menu_Item> items = new ArrayList<Menu_Item> ();
 
 	public Menu (ArrayList<Menu_Item> items) {

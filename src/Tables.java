@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-public class Tables {
+public class Tables implements Serializable{
 	private List<Table_Item> tables = new ArrayList<Table_Item>();
 	public Tables(){
 		for(int i = 0; i < 30; i++){

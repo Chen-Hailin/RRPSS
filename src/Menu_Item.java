@@ -1,12 +1,12 @@
 import java.lang.String;
 
-public class Menu_Item {
+public class Menu_Item implements Serializable{
 	private static int maxID = 1;
 	private String itemType, itemDesc, itemName;
 	private double itemPrice;
 	private int itemID;
 	
-	
+//passing in int itemID is not needed
 	public Menu_Item (int itemID, String itemType, String itemDesc, String itemName, double itemPrice){
 		this.itemID = maxID;
 		this.itemType = itemType;
