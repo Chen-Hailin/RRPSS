@@ -9,7 +9,7 @@ private double revenue;
 public Rev_rep_list[] getitemsold(){
 	return item_sold;
 }
-public void setGrades(Rev_rep_list[] item_sold){
+public void setitem(Rev_rep_list[] item_sold){
 	this.item_sold = item_sold;
 }
 public int getMonth(){
