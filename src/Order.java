@@ -18,8 +18,20 @@ class Order implements Serializable {
     public Order(Staff staff, Reservation reservation) {
         this.staff          = staff;
         this.reservation    = reservation;
-        promotionSets   = new ArrayList<PromotionSet>();
-        menuItems       = new ArrayList<MenuItem>();
+        promotionSetIDs     = new ArrayList<int>();
+        menuItemIDs         = new ArrayList<int>();
+    }
+    
+    public Reservation getReservation() {
+        return reservation;
+    }
+    
+    public List<int> getPromotionSetIDs() {
+        return promotionSetIDs;
+    }
+    
+    public List<int> getMenuItemIDs() {
+        return menuItemIDs;
     }
     
     /**
@@ -52,20 +64,25 @@ class Order implements Serializable {
         return menuItemIDs.remove(menuItemID);
     }
     
+    public void print() {
+        getReservation.check();
+    }
+    
     /**
     * Print the order details (table number, timestamp, etc).    
     */
-    public void printInvoice() {
-        reservation.check();
+    public void printInvoice() {        
+        print();
         
-        // TODO: append the revenue to revenue report list. 
-        // Will implement after the Revenue data structure is done
-        for(MenuItem menuItem: menuItems) {
-            
+        double total = 0;
+        for (int id: getMenuItemIDs()) {
+            total += Menu.getMenuItem().itemPrice;
         }
         
-        for(PromotionSet promotionSet: promotionSets) {
-            
+        for (int id: getPromotionSetIDs()) {
+            total += PromoSet.getSetItem().setPrice;
         }
+        
+        Rev_rep_list.addRevReport(this, total);
     }
 }   

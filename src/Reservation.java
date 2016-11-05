@@ -23,7 +23,7 @@ class Reservation implements Serializable {
         this.contactNumber   = contactNumber;
         this.tableID         = tableID;
         
-        tableList.changeStatus("reserved");
+        TableList.changeStatus("reserved");
     }
     
     private Date getArrivalTime() {
