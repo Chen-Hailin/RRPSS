@@ -1,12 +1,19 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Menu implements Serializable{
+public class Menu implements Serializable {
 	private ArrayList <Menu_Item> items = new ArrayList<Menu_Item> ();
-
-	public Menu (ArrayList<Menu_Item> items) {
-		this.items = items;
-	}
 	
+    public Menu () {}
+	
+    //Exist only to defeat instantiation
+    private static Menu instance = null;	
+	
+    public static Menu getInstance(){
+		if(instance == null)
+			instance = new Menu();
+		return instance;
+	}
 	
 	public Menu_Item getMenuItem (int itemID){
 		for(Menu_Item item: items)

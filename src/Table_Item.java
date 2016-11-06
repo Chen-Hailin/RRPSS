@@ -1,4 +1,6 @@
 import java.lang.String;
+import java.io.Serializable;
+
 public class Table_Item implements Serializable{
 	private int ID, Max_pax;
 	private String Status; 

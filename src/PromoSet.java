@@ -4,10 +4,17 @@ public class PromoSet {
 
 	private ArrayList <Set_Item> sets = new ArrayList <Set_Item>();
 	
-	public PromoSet (ArrayList<Set_Item> sets) {
-		this.sets = sets;
-	}
+	public PromoSet() {}
+    
+    //Exist only to defeat instantiation
+    private static PromoSet instance = null;
 	
+    public static PromoSet getInstance(){
+		if(instance == null)
+			instance = new PromoSet();
+		return instance;
+	}	
+    
 	public Set_Item getSetItem (int itemSetID){
 		for(Set_Item set: sets)
 		{

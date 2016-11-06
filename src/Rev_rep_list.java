@@ -1,20 +1,31 @@
-import java.util.ArrayList;
+import java.util.*;
+import java.io.Serializable;
 
 public class Rev_rep_list implements Serializable {
+
+    //Exist only to defeat instantiation
+    private static Rev_rep_list instance = null;
+	
+	//APP can use this to get the singleton reference
+    public Rev_rep_list() {
+        reports = new Rev_report[12];
+    }
+	
+    public static Rev_rep_list getInstance(){
+		if(instance == null)
+			instance = new Rev_rep_list();
+		return instance;
+	}
 
     /**
     * List of revenue report from January to December.
     * e.g. reports[0] contains all orders from January.
     */
-    private List<Rev_report> reports[12];
+    private Rev_report[] reports;
 
     /**
     * Constructor.
     */
-    public Rev_rep_list() {
-        for (int i=0; i<12; i++)
-            reports = new Rev_report();
-    }
 
     /**
     * Add an order to the revenue report

@@ -1,4 +1,5 @@
 import java.lang.String;
+import java.io.Serializable;
 
 public class Menu_Item implements Serializable{
 	private static int maxID = 1;

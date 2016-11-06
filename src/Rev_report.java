@@ -1,16 +1,17 @@
-import java.util.ArrayList;
+import java.util.*;
+import java.io.Serializable;
 
 public class Rev_report implements Serializable {    
     private double totalRevenue;
     private List<Order> orders;
 	
-	public Rev_Report() {
-        orders = new ArrayList<Order>;
+	public Rev_report() {
+        orders = new ArrayList<Order>();
         totalRevenue = 0;
 	}
     
     public double getTotalRevenue() {
-        return totalRevenue();
+        return totalRevenue;
     }
     
     public List<Order> getOrders() {
@@ -22,7 +23,7 @@ public class Rev_report implements Serializable {
     * @param order The order going to be added.
     * @param totalRevenue The total revenue of this order.
     */
-    public void addOrder(Order order, totalRevenue) {
+    public void addOrder(Order order, double totalRevenue) {
         orders.add(order);
         this.totalRevenue += totalRevenue;
     }

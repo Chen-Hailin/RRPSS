@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import java.util.*;
+import java.io.Serializable;
 
 /**
 * Store information of an order.
@@ -6,8 +7,8 @@ import java.util.ArrayList;
 class Order implements Serializable {
     private Reservation reservation;
     private Staff staff;
-    private List<int> promotionSetIDs;
-    private List<int> menuItemIDs;
+    private List<Integer> promotionSetIDs;
+    private List<Integer> menuItemIDs;
     
     /**
     * Constructor.
@@ -18,33 +19,33 @@ class Order implements Serializable {
     public Order(Staff staff, Reservation reservation) {
         this.staff          = staff;
         this.reservation    = reservation;
-        promotionSetIDs     = new ArrayList<int>();
-        menuItemIDs         = new ArrayList<int>();
+        promotionSetIDs     = new ArrayList<Integer>();
+        menuItemIDs         = new ArrayList<Integer>();
     }
     
     public Reservation getReservation() {
         return reservation;
     }
     
-    public List<int> getPromotionSetIDs() {
+    public List<Integer> getPromotionSetIDs() {
         return promotionSetIDs;
     }
     
-    public List<int> getMenuItemIDs() {
+    public List<Integer> getMenuItemIDs() {
         return menuItemIDs;
     }
     
     /**
     * Add an order from the promotion set id.
     */
-    public void addPromotionSet(int promotionSetID) {
+    public void addPromotionSet(Integer promotionSetID) {
         promotionSetIDs.add(promotionSetID);
     }   
     
     /**
     * Add an order from the menu item id.
     */
-    public void addMenuItem(int menuItemID) {
+    public void addMenuItem(Integer menuItemID) {
         menuItemIDs.add(menuItemID);
     }
     
@@ -52,7 +53,7 @@ class Order implements Serializable {
     * Remove a promotion set order.
     * @return False if the specified item is not in the order, otherwise Yes
     */
-    public boolean removePromotionSet(int promotionSetID) {
+    public boolean removePromotionSet(Integer promotionSetID) {
         return promotionSetIDs.remove(promotionSetID);
     }
     
@@ -60,12 +61,12 @@ class Order implements Serializable {
     * Remove a menu item order.
     * @return False if the specified item is not in the order, otherwise Yes
     */
-    public boolean removeMenuItem(int menuItemID) {
+    public boolean removeMenuItem(Integer menuItemID) {
         return menuItemIDs.remove(menuItemID);
     }
     
     public void print() {
-        getReservation.check();
+        getReservation().check();
     }
     
     /**
@@ -76,13 +77,13 @@ class Order implements Serializable {
         
         double total = 0;
         for (int id: getMenuItemIDs()) {
-            total += Menu.getMenuItem().itemPrice;
+            total += Menu.getInstance().getMenuItem(id).getItemPrice();
         }
         
         for (int id: getPromotionSetIDs()) {
-            total += PromoSet.getSetItem().setPrice;
+            total += PromoSet.getInstance().getSetItem(id).getSetPrice();
         }
         
-        Rev_rep_list.addRevReport(this, total);
+        Rev_rep_list.getInstance().addRevReport(this, total);
     }
 }   

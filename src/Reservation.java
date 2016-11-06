@@ -1,5 +1,6 @@
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.io.Serializable;
 
 /**
 * Stores the information of a reservation.
@@ -23,10 +24,15 @@ class Reservation implements Serializable {
         this.contactNumber   = contactNumber;
         this.tableID         = tableID;
         
-        TableList.changeStatus("reserved");
+        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");   
+        String date = ft.format(arrivalTime);
+        ft = new SimpleDateFormat("a");
+        if (ft.format(arrivalTime) == "AM") date.concat("0");
+        else date.concat("1");
+        TablesList.getInstance().changeStatus(Integer.parseInt(date), tableID, "reserved");
     }
     
-    private Date getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
     

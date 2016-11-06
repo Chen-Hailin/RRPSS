@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
 * Stores information about the staff.
 */
