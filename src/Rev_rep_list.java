@@ -5,17 +5,21 @@ public class Rev_rep_list implements Serializable {
 
     //Exist only to defeat instantiation
     private static Rev_rep_list instance = null;
-	
+
 	//APP can use this to get the singleton reference
     public Rev_rep_list() {
         reports = new Rev_report[12];
     }
-	
+
     public static Rev_rep_list getInstance(){
 		if(instance == null)
 			instance = new Rev_rep_list();
 		return instance;
 	}
+
+    public void setInstance() {
+        instance = this;
+    }
 
     /**
     * List of revenue report from January to December.
@@ -33,14 +37,14 @@ public class Rev_rep_list implements Serializable {
     */
     public void addRevReport(Order order, double total) {
         Date date = order.getReservation().getArrivalTime();
-        
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int month = calendar.get(Calendar.MONTH);
-        
+
         reports[month].addOrder(order, total);
     }
-    
+
     /**
     * Print the revenue report from a given range of time.
     * @param start The starting month.
@@ -68,4 +72,3 @@ public class Rev_rep_list implements Serializable {
         printReport(0, 11);
     }
 }
-
