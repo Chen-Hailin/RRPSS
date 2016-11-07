@@ -15,6 +15,10 @@ public class PromoSet {
 		return instance;
 	}
 
+	public void setInstance() {
+		instance = this;
+	}
+
 	public Set_Item getSetItem (int itemSetID){
 		for(Set_Item set: sets)
 		{

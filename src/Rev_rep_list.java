@@ -5,7 +5,7 @@ public class Rev_rep_list implements Serializable {
 
 
     private static Rev_rep_list instance = null;
-    //private constructor exist to defeat public instantiation, 
+    //private constructor exist to defeat public instantiation,
     private Rev_rep_list() {
         reports = new Rev_report[12];
     }
@@ -14,6 +14,10 @@ public class Rev_rep_list implements Serializable {
 		if(instance == null)
 			instance = new Rev_rep_list();
 		return instance;
+	}
+
+    public void setInstance() {
+		instance = this;
 	}
 
     /**
