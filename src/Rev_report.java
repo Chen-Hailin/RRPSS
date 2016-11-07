@@ -7,7 +7,8 @@ public class Rev_report implements Serializable {
     private List<Integer> promoSetIDs;
 	
 	public Rev_report() {
-        orders = new ArrayList<Order>();
+        menuItemIDs = new ArrayList<Integer>();
+        promoSetIDs = new ArrayList<Integer>();
         totalRevenue = 0;
 	}
     
@@ -44,8 +45,8 @@ public class Rev_report implements Serializable {
             System.out.println(menu.getMenuItem(id).toString());
         }
         
-        for (int id: getPromotionSetIDs()) {
-            System.out.println(promo.getSetItem(id).toString());
+        for (int id: getPromoSetIDs()) {
+            System.out.println(promoSet.getSetItem(id).toString());
         }    
         
         System.out.println("Total revenue this month: " + getTotalRevenue());

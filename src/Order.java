@@ -73,7 +73,7 @@ class Order implements Serializable {
         }
         
         for (int id: getPromotionSetIDs()) {
-            System.out.println(promo.getSetItem(id).toString());
+            System.out.println(promoSet.getSetItem(id).toString());
         }
     }
     
@@ -92,6 +92,6 @@ class Order implements Serializable {
             total += promoSet.getSetItem(id).getSetPrice();
         }
         
-        Rev_rep_list.getInstance().addRevReport(getMenuItemIDs(), getPromotionSetIDs(), total);
+        Rev_rep_list.getInstance().addRevReport(getMenuItemIDs(), getPromotionSetIDs(), total, getReservation().getArrivalTime());
     }
 }   

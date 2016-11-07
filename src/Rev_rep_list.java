@@ -31,9 +31,7 @@ public class Rev_rep_list implements Serializable {
     * Add an order to the revenue report
     * @param order Order that is going to be added
     */
-    public void addRevReport(List<Integer> menuItemIDs, List<Integer> promoSetIDs, double total) {
-        Date date = order.getReservation().getArrivalTime();
-
+    public void addRevReport(List<Integer> menuItemIDs, List<Integer> promoSetIDs, double total, Date date) {        
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int month = calendar.get(Calendar.MONTH);
