@@ -17,7 +17,12 @@ public class TablesList implements Serializable{
 			instance = new TablesList();
 		return instance;
 	}
-
+    
+    /**
+     * @param date the date-session that guests are arriving, pax the number of people having meal, 
+     * @param Desire_status eg "vacated", Target_status the status to be changed after the table is booked
+     * @return int the table ID
+     */
     //get the desired table with the best fit for pax, if there's no table suitable, return -1
 	public int check_get(int date, int pax, String Desire_status, String Target_status){
 		//if the date is not yet in the hash list, initialize one
@@ -26,17 +31,24 @@ public class TablesList implements Serializable{
 		return tables_with_date.get(new Integer(date)).getTable(pax, Desire_status, Target_status);
 	}
 
-	public void changeStatus(int date, int ID, String Status){
-		tables_with_date.get(new Integer(date)).ChangeStatus(ID, Status);
+	/**
+     * @param Target_status the status to be changed to
+     */
+	public void changeStatus(int date, int ID, String Target_status){
+		tables_with_date.get(new Integer(date)).ChangeStatus(ID, Target_status);
 	}
 
+	/**
+     * @param today the current date-session 
+     * @return void, delete all the out dated data
+     */
 	public void remove_old(int today){
 		for(Integer date : tables_with_date.keySet()){
 			if(date < today)
 				tables_with_date.remove(date);
 		}
 	}
-	public void initialize(int date){
+	private void initialize(int date){
 		tables_with_date.put(new Integer(date), new Tables());
 	}
 }

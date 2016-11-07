@@ -17,6 +17,11 @@ public class Tables implements Serializable {
 		}
 	}
 	
+	/**
+     * @param pax the number of people having meal, 
+     * @param Desire_status eg "vacated", Target_status the status to be changed after the table is booked
+     * @return int the table ID if found, otherwise -1
+     */
 	//thread safe, atomic method to get the desire table and change its status. If no such table found, return -1
 	public synchronized int getTable(int pax, String Desire_status, String Target_status){
 		int minDiff = Integer.MAX_VALUE;
