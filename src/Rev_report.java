@@ -3,7 +3,8 @@ import java.io.Serializable;
 
 public class Rev_report implements Serializable {    
     private double totalRevenue;
-    private List<Order> orders;
+    private List<Integer> menuItemIDs;
+    private List<Integer> promoSetIDs;
 	
 	public Rev_report() {
         orders = new ArrayList<Order>();
@@ -14,8 +15,12 @@ public class Rev_report implements Serializable {
         return totalRevenue;
     }
     
-    public List<Order> getOrders() {
-        return orders;
+    public List<Integer> getMenuItemIDs() {   
+        return menuItemIDs;
+    }
+    
+    public List<Integer> getPromoSetIDs() {
+        return promoSetIDs;
     }
 	
     /**
@@ -23,19 +28,26 @@ public class Rev_report implements Serializable {
     * @param order The order going to be added.
     * @param totalRevenue The total revenue of this order.
     */
-    public void addOrder(Order order, double totalRevenue) {
-        orders.add(order);
+    public void addOrder(List<Integer> menuItemIDs, List<Integer> promoSetIDs, double totalRevenue) {
+        this.menuItemIDs.addAll(menuItemIDs);
+        this.promoSetIDs.addAll(promoSetIDs);
         this.totalRevenue += totalRevenue;
     }
     
     /**
     * Print the report details.
     */
-    public void print() {
+    public void print(Menu menu, PromoSet promoSet) {
         System.out.println("Revenue report:");
-        for (Order order: orders) {
-            order.print();
+        
+        for (int id: getMenuItemIDs()) {
+            System.out.println(menu.getMenuItem(id).toString());
         }
+        
+        for (int id: getPromotionSetIDs()) {
+            System.out.println(promo.getSetItem(id).toString());
+        }    
+        
         System.out.println("Total revenue this month: " + getTotalRevenue());
     }
 }

@@ -65,25 +65,33 @@ class Order implements Serializable {
         return menuItemIDs.remove(menuItemID);
     }
     
-    public void print() {
+    public void print(Menu menu, PromoSet promoSet) {
         getReservation().check();
-    }
-    
-    /**
-    * Print the order details (table number, timestamp, etc).    
-    */
-    public void printInvoice() {        
-        print();
         
-        double total = 0;
         for (int id: getMenuItemIDs()) {
-            total += Menu.getInstance().getMenuItem(id).getItemPrice();
+            System.out.println(menu.getMenuItem(id).toString());
         }
         
         for (int id: getPromotionSetIDs()) {
-            total += PromoSet.getInstance().getSetItem(id).getSetPrice();
+            System.out.println(promo.getSetItem(id).toString());
+        }
+    }
+    
+    /**
+    * Print the order details (table number, timestamp, etc) 
+    */
+    public void printInvoice(Menu menu, PromoSet promoSet) {  
+        print(menu, promoSet);
+        
+        double total = 0;
+        for (int id: getMenuItemIDs()) {
+            total += menu.getMenuItem(id).getItemPrice();
         }
         
-        Rev_rep_list.getInstance().addRevReport(this, total);
+        for (int id: getPromotionSetIDs()) {
+            total += promoSet.getSetItem(id).getSetPrice();
+        }
+        
+        Rev_rep_list.getInstance().addRevReport(getMenuItemIDs(), getPromotionSetIDs(), total);
     }
 }   
