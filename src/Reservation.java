@@ -53,6 +53,18 @@ class Reservation implements Serializable {
     }
     
     /**
+    * Indicates whether other reservation is equal to this reservation.
+    */
+    public boolean equals (Reservation other) {
+        if (getArrivalTime().equals(other.getArrivalTime()) == false) return false;
+        if (getNumberOfPax()    != other.getNumberOfPax()) return false;
+        if (getName()           != other.getName()) return false;
+        if (getContactNumber()  != other.getContactNumber()) return false;
+        if (getTableID()        != other.getTableID()) return false;
+        return true;
+    }
+    
+    /**
     * Check the reservation status.
     */
     public void check() {
