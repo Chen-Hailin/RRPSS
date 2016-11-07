@@ -7,31 +7,23 @@ public class TablesList implements Serializable{
 	//Eg: 201603110 means 11th April 2016, AM session
 	private Map<Integer, Tables> tables_with_date = new HashMap<Integer, Tables>();
 
-	//Exist only to defeat instantiation
+	
     private static TablesList instance = null;
-
-	//APP can use this to get the singleton reference
+    //Exist only to defeat instantiation
     private TablesList(){};
-
+    //APP can use this to get the singleton reference
     public static TablesList getInstance(){
 		if(instance == null)
 			instance = new TablesList();
 		return instance;
 	}
 
-	public void setInstance() {
-        instance = this;
-    }
-
-    //Check whether the table is available for certain date and pax
-	public boolean check(int date, int pax){
-		//if this date list does not exist, call the initialize method to put the entry
+    //get the desired table with the best fit for pax, if there's no table suitable, return -1
+	public int check_get(int date, int pax, String Desire_status, String Target_status){
+		//if the date is not yet in the hash list, initialize one
 		if(tables_with_date.get(new Integer(date)) == null)
 			this.initialize(date);
-		return tables_with_date.get(new Integer(date)).check_availability(pax);
-	}
-	public int getTable(int date, int pax){
-		return tables_with_date.get(new Integer(date)).getTable(pax);
+		return tables_with_date.get(new Integer(date)).getTable(pax, Desire_status, Target_status);
 	}
 
 	public void changeStatus(int date, int ID, String Status){

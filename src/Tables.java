@@ -16,28 +16,29 @@ public class Tables implements Serializable {
 				tables.add(new Table_Item(i, 2));
 		}
 	}
-	public boolean check_availability(int pax){
-		for(int i = 0; i < tables.size(); i++){
-			if(tables.get(i).getMax_pax() >= pax)
-				return true;
-		}
-		return false;
-	}
-	public int getTable(int pax){
+	
+	//thread safe, atomic method to get the desire table and change its status. If no such table found, return -1
+	public synchronized int getTable(int pax, String Desire_status, String Target_status){
 		int minDiff = Integer.MAX_VALUE;
-		int bestFit = 0;
+		int bestFit = -1;
 		int diff;
 		for(int i = 0; i < tables.size(); i++){
-			diff = tables.get(i).getMax_pax() - pax;
-			if(diff >= 0 && diff < minDiff){
-				minDiff = diff;
-				bestFit = i;
-				if(minDiff == 0)
-					break;	
+			if(tables.get(i).getStatus()==Desire_status){
+				diff = tables.get(i).getMax_pax() - pax;
+				if(diff >= 0 && diff < minDiff){
+					minDiff = diff;
+					bestFit = i;
+					if(minDiff == 0)
+						break;	
+				}
 			}
 		}
+		if (bestFit != -1)
+			tables.get(bestFit).changeStatus(Target_status);
 		return bestFit;
 	}
+	
+	//public method provided to change back the status of certain table
 	public void ChangeStatus(int ID, String Status){
 		tables.get(ID).changeStatus(Status);
 	}

@@ -3,23 +3,18 @@ import java.io.Serializable;
 
 public class Rev_rep_list implements Serializable {
 
-    //Exist only to defeat instantiation
-    private static Rev_rep_list instance = null;
 
-	//APP can use this to get the singleton reference
-    public Rev_rep_list() {
+    private static Rev_rep_list instance = null;
+    //private constructor exist to defeat public instantiation, 
+    private Rev_rep_list() {
         reports = new Rev_report[12];
     }
-
+    //APP can use this to get the singleton reference
     public static Rev_rep_list getInstance(){
 		if(instance == null)
 			instance = new Rev_rep_list();
 		return instance;
 	}
-
-    public void setInstance() {
-        instance = this;
-    }
 
     /**
     * List of revenue report from January to December.

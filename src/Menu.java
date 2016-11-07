@@ -4,11 +4,11 @@ import java.io.Serializable;
 public class Menu implements Serializable {
 	private ArrayList <Menu_Item> items = new ArrayList<Menu_Item> ();
 
-    public Menu () {}
+	//Exist only to defeat instantiation
+    private Menu () {}
 
-    //Exist only to defeat instantiation
     private static Menu instance = null;
-
+    //APP can use this to get the singleton reference
     public static Menu getInstance(){
 		if(instance == null)
 			instance = new Menu();

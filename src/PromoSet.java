@@ -3,20 +3,16 @@ import java.util.ArrayList;
 public class PromoSet {
 
 	private ArrayList <Set_Item> sets = new ArrayList <Set_Item>();
+	//Exist only to defeat instantiation
+	private PromoSet() {}
 
-	public PromoSet() {}
-
-    //Exist only to defeat instantiation
     private static PromoSet instance = null;
 
+    //APP can use this to get the singleton reference
     public static PromoSet getInstance(){
 		if(instance == null)
 			instance = new PromoSet();
 		return instance;
-	}
-
-	public void setInstance() {
-		instance = this;
 	}
 
 	public Set_Item getSetItem (int itemSetID){
