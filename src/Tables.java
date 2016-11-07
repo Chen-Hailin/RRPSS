@@ -16,9 +16,9 @@ public class Tables implements Serializable {
 				tables.add(new Table_Item(i, 2));
 		}
 	}
-	
+
 	/**
-     * @param pax the number of people having meal, 
+     * @param pax the number of people having meal,
      * @param Desire_status eg "vacated", Target_status the status to be changed after the table is booked
      * @return int the table ID if found, otherwise -1
      */
@@ -28,13 +28,13 @@ public class Tables implements Serializable {
 		int bestFit = -1;
 		int diff;
 		for(int i = 0; i < tables.size(); i++){
-			if(tables.get(i).getStatus()==Desire_status){
+			if(tables.get(i).getStatus().equals(Desire_status)){
 				diff = tables.get(i).getMax_pax() - pax;
 				if(diff >= 0 && diff < minDiff){
 					minDiff = diff;
 					bestFit = i;
 					if(minDiff == 0)
-						break;	
+						break;
 				}
 			}
 		}
@@ -42,7 +42,7 @@ public class Tables implements Serializable {
 			tables.get(bestFit).changeStatus(Target_status);
 		return bestFit;
 	}
-	
+
 	//public method provided to change back the status of certain table
 	public void ChangeStatus(int ID, String Status){
 		tables.get(ID).changeStatus(Status);
