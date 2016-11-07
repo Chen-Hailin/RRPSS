@@ -10,12 +10,12 @@ public class Rev_rep_list implements Serializable {
     private Rev_report[] reports;
 
     private static Rev_rep_list instance = null;
-    
-    //private constructor exist to defeat public instantiation, 
+
+    //private constructor exist to defeat public instantiation,
     private Rev_rep_list() {
         reports = new Rev_report[12];
     }
-    
+
     //APP can use this to get the singleton reference
     public static Rev_rep_list getInstance(){
 		if(instance == null)
@@ -31,11 +31,14 @@ public class Rev_rep_list implements Serializable {
     * Add an order to the revenue report
     * @param order Order that is going to be added
     */
-    public void addRevReport(List<Integer> menuItemIDs, List<Integer> promoSetIDs, double total, Date date) {        
+    public void addRevReport(List<Integer> menuItemIDs, List<Integer> promoSetIDs, double total, Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int month = calendar.get(Calendar.MONTH);
 
+        if (reports[month] == null)
+            reports[month] = new Rev_report();
+        reports[month].print(Menu.getInstance(), PromoSet.getInstance());
         reports[month].addOrder(menuItemIDs, promoSetIDs, total);
     }
 
