@@ -25,9 +25,8 @@ public class TablesList implements Serializable{
     /**
      * @param date the date-session that guests are arriving, pax the number of people having meal,
      * @param Desire_status eg "vacated", Target_status the status to be changed after the table is booked
-     * @return int the table ID
+     * @return int the table ID, if there's no table suitable, return -1
      */
-    //get the desired table with the best fit for pax, if there's no table suitable, return -1
 	public int check_get(int date, int pax, String Desire_status, String Target_status){
 		//if the date is not yet in the hash list, initialize one
 		if(tables_with_date.get(new Integer(date)) == null)

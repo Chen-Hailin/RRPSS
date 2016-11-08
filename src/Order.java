@@ -80,7 +80,7 @@ class Order implements Serializable {
     /**
     * Print the order details (table number, timestamp, etc) 
     */
-    public void printInvoice(Menu menu, PromoSet promoSet) {  
+    public void printInvoice(Menu menu, PromoSet promoSet, Rev_rep_list rev_rep_list) {  
         print(menu, promoSet);
         
         double total = 0;
@@ -92,6 +92,6 @@ class Order implements Serializable {
             total += promoSet.getSetItem(id).getSetPrice();
         }
         
-        Rev_rep_list.getInstance().addRevReport(getMenuItemIDs(), getPromotionSetIDs(), total, getReservation().getArrivalTime());
+        rev_rep_list.addRevReport(getMenuItemIDs(), getPromotionSetIDs(), total, getReservation().getArrivalTime());
     }
 }   

@@ -122,7 +122,7 @@ class RRPSSApp {
 
                     break;
 
-                case 3 : //Create order
+                case 3 : //Create order, (chl: i think better to a staff list to choose which staff)
                     System.out.print("Input your reservation contactNumber: ");
                     contactNum = sc.next();
                     System.out.print("Please input the reservation date (in format d/m/yyyy h:m): ");
