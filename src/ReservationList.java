@@ -51,4 +51,13 @@ class ReservationList implements Serializable {
         tablesList.changeStatus (DateHandler.parseDatetoInteger(date), tmp.getTableID(), "vacated");
         getReservationList().remove(getReservation (date, contactNumber));
     }
+
+    public void removeExpiredReservation (Date date) {
+        for (Iterator <Reservation> it = getReservationList().iterator(); it.hasNext();) {
+            Reservation rev = it.next();
+            if ((date.getTime() - rev.getArrivalTime().getTime()) / 1000 % 60 < 30) {
+                it.remove();
+            }
+        }
+    }
 }
