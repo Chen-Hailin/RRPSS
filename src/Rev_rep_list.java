@@ -50,7 +50,7 @@ public class Rev_rep_list implements Serializable {
     */
     public void printReport(int start, int end, Menu menu, PromoSet promoSet) {
         for (int month = start; month <= end; month++) {
-            System.out.println(new DateFormatSymbols().getMonths()[month - 1] + ": ");
+            System.out.println(new DateFormatSymbols().getMonths()[month] + ": ");
             reports[month].print(menu, promoSet);
         }
     }
