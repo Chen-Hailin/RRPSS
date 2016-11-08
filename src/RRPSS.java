@@ -2,66 +2,9 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 
 class RRPSS {
-    private IOFileHandler io = new IOFileHandler();
-    private Map<Reservation, Order> orderList;
-    private List<Reservation> reservationList;
+    private static IOFileHandler io = new IOFileHandler();
 
-    public Map<Reservation, Order> getOrderList() {
-        if (orderList == null)
-            orderList = new HashMap<Reservation, Order> ();
-
-        return orderList;
-    }
-
-    public Order getOrder(Reservation key) {
-        return getOrderList().get(key);
-    }
-
-    public void removeOrder (Reservation reservation) {
-        orderList.remove(reservation);
-    }
-
-    public void printOrder() {
-        for (Map.Entry <Reservation, Order> entry : getOrderList().entrySet()) {
-            entry.getValue().print(Menu.getInstance(), PromoSet.getInstance());
-            System.out.println("########################");
-        }
-    }
-
-    public List<Reservation> getReservationList() {
-        if (reservationList == null)
-            reservationList = new ArrayList<Reservation> ();
-
-        return reservationList;
-    }
-
-    public Reservation getReservation(Date date, String contactNumber) throws Exception{
-        for (Reservation rev : getReservationList()) {
-            if (rev.getContactNumber().equals(contactNumber) &&
-            DateHandler.parseDatetoInteger(rev.getArrivalTime()).equals(DateHandler.parseDatetoInteger(date)))
-                return rev;
-        }
-        return null;
-    }
-
-    public void checkReservation (String contactNumber) {
-        for (Reservation rev : getReservationList()) {
-            if (rev.getContactNumber().equals(contactNumber)) {
-                System.out.println ("########################");
-                rev.check();
-            }
-        }
-        System.out.println ("########################");
-    }
-
-    public void removeReservation (Date date, String contactNumber) throws Exception{
-        Reservation tmp = getReservation (date, contactNumber);
-        TablesList.getInstance().changeStatus (DateHandler.parseDatetoInteger(date), tmp.getTableID(), "vacated");
-        getReservationList().remove(getReservation (date, contactNumber));
-    }
-
-
-    void loadData() {
+    public static void loadData() {
         try {
             Rev_rep_list currentRev = (Rev_rep_list) io.readObj ("revenue_list.ser");
             currentRev.setInstance();
@@ -83,24 +26,24 @@ class RRPSS {
         } catch (NullPointerException ioException) {}
 
         try {
-            orderList = (HashMap<Reservation, Order>) io.readObj ("order_list.ser");
+            OrderList orderList = (OrderList) io.readObj ("order_list.ser");
+            orderList.setInstance();
         } catch (NullPointerException ioException) {}
 
         try {
-            reservationList = (ArrayList<Reservation>) io.readObj ("reservation_list.ser");
+            ReservationList reservationList = (ReservationList) io.readObj ("reservation_list.ser");
+            reservationList.setInstance();
         } catch (NullPointerException ioException) {}
 
     }
 
-    void storeData() {
+    public static void storeData() {
         io.writeObj ("revenue_list.ser", Rev_rep_list.getInstance());
         io.writeObj ("promo_set.ser", PromoSet.getInstance());
         io.writeObj ("menu.ser", Menu.getInstance());
         io.writeObj ("table_list.ser", TablesList.getInstance());
-        io.writeObj ("order_list.ser", this.orderList);
-        io.writeObj ("reservation_list.ser", this.reservationList);
+        io.writeObj ("order_list.ser", OrderList.getInstance());
+        io.writeObj ("reservation_list.ser", ReservationList.getInstance());
     }
-
-
 
 }

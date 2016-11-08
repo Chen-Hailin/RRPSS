@@ -6,8 +6,9 @@ class DateHandler {
         SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
         String date = ft.format(dateIn);
         ft = new SimpleDateFormat("a");
-        if (ft.format(dateIn).equals("AM")) date += "0";
-        else date += "1";
+        if (isAMSession(dateIn)) date += "0";
+        else if (isPMSession (dateIn)) date += "1";
+        else return null;
 
         return Integer.parseInt(date);
     }
