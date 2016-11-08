@@ -28,7 +28,7 @@ class RRPSSApp {
             // refresh table
 //            tablesList.remove_old(DateHandler.parseDatetoInteger(today));
             // remove expired reservation
-            reservationList.removeExpiredReservation(today);
+            reservationList.removeExpiredReservation(today, tablesList);
 
             System.out.println("RRPSS:");
             System.out.println("1. Create/Update/Remove menu item");
@@ -282,13 +282,13 @@ class RRPSSApp {
 
                         if (currentReservation == null) System.out.println ("No reservation found");
                         else {
-                            Order currentOrder = orderList.getOrderList().get(currentReservation);
+                            Order currentOrder = orderList.getOrder(currentReservation);
 
                             if (currentOrder == null) System.out.println ("No Order for this reservation found");
                             else {
                                 currentOrder.printInvoice(menu, promoSet, rev_rep_list);
                                 // delete from map
-                                orderList.getOrderList().remove(currentReservation);
+                                orderList.removeOrder(currentReservation);
                             }
                         }
                     }
