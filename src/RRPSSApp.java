@@ -3,7 +3,10 @@ import java.text.SimpleDateFormat;
 
 class RRPSSApp {
     private static RRPSS restaurant = new RRPSS();
-
+    private static Rev_rep_list rev_rep_list = Rev_rep_list.getInstance();
+    private static TablesList tablesList = TablesList.getInstance();
+    private static Menu menu = Menu.getInstance();
+    private static PromoSet promoSet = PromoSet.getInstance();
     private static Integer parseDatetoInteger (Date dateIn) {
         SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
         String date = ft.format(dateIn);
@@ -42,26 +45,26 @@ class RRPSSApp {
             switch (choice) {
                 case 1 : //Create/Update/Remove menu item
                     // show current menu
-                    Menu.getInstance().printMenu();
+                    menu.printMenu();
                     System.out.print("\n1. Create\n2. Update\n3. Remove\nPlease input your choice: ");
                     ch = sc.nextInt();
 
                     switch (ch) {
                         case 1 : // create new
                             System.out.print("Please input the new menu in format \"Type, Description, Name, Price\" respectively: ");
-                            Menu.getInstance().addItem(1, sc.next(), sc.next(), sc.next(), sc.nextDouble());
+                            menu.addItem(1, sc.next(), sc.next(), sc.next(), sc.nextDouble());
                             break;
 
                         case 2 : // update
                             System.out.print("Please input the id to be updated: ");
                             int menuId = sc.nextInt();
                             System.out.print("Please input the updated data in format \"Type, Description, Name, Price\" respectively: ");
-                            Menu.getInstance().updateMenuItem(menuId, sc.next(), sc.next(), sc.next(), sc.nextDouble());
+                            menu.updateMenuItem(menuId, sc.next(), sc.next(), sc.next(), sc.nextDouble());
                             break;
 
                         case 3 : // remove
                             System.out.print("Please input the id which will be removed: ");
-                            Menu.getInstance().MenuItemRemove(sc.nextInt());
+                            menu.MenuItemRemove(sc.nextInt());
                             break;
 
                         default :
@@ -71,14 +74,14 @@ class RRPSSApp {
                     break;
 
                 case 2 : //Create/Update/Remove promotion
-                    PromoSet.getInstance().printSets();
+                    promoSet.printSets();
                     System.out.print("\n1. Create\n2. Update\n3. Remove\nPlease input your choice: ");
                     ch = sc.nextInt();
 
                     switch (ch) {
                         case 1 : // create new
                             System.out.println("Please input the new promo set in format \"Name, Price\" respectively: ");
-                            PromoSet.getInstance().addSet(1, sc.next(), sc.nextDouble());
+                            promoSet.addSet(1, sc.next(), sc.nextDouble());
                             break;
 
                         case 2 : // update
@@ -90,20 +93,20 @@ class RRPSSApp {
 
                             switch (promoChoice) {
                                 case 1 : // add new menu to the set
-                                    Menu.getInstance().printMenu();
+                                    menu.printMenu();
                                     System.out.print("Please input the menu id which will be inserted to the set: ");
-                                    PromoSet.getInstance().getSetItem(promoId).addItem(Menu.getInstance().getMenuItem(sc.nextInt()));
+                                    promoSet.getSetItem(promoId).addItem(menu.getMenuItem(sc.nextInt()));
                                     break;
 
                                 case 2 : // remove a menu from the set
-                                    Menu.getInstance().printMenu();
+                                	menu.printMenu();
                                     System.out.print("Please input the menu id which will be removed: ");
-                                    PromoSet.getInstance().getSetItem(promoId).removeItem(Menu.getInstance().getMenuItem(sc.nextInt()));
+                                    promoSet.getSetItem(promoId).removeItem(menu.getMenuItem(sc.nextInt()));
                                     break;
 
                                 case 3 :
                                     System.out.print("Please input the updated data in format \"Name, Price\" respectively: ");
-                                    PromoSet.getInstance().updateSetItem(promoId, sc.next(), sc.nextDouble());
+                                    promoSet.updateSetItem(promoId, sc.next(), sc.nextDouble());
                                     break;
 
                                 default :
@@ -113,7 +116,7 @@ class RRPSSApp {
 
                         case 3 : // remove
                         System.out.print("Please input the id which will be removed: ");
-                            PromoSet.getInstance().MenuItemRemove(sc.nextInt());
+                            promoSet.MenuItemRemove(sc.nextInt());
                             break;
 
                         default :
@@ -156,11 +159,11 @@ class RRPSSApp {
                         ch = sc.nextInt();
 
                         Order currentOrder = restaurant.getOrderList().get(currentReservation);
-                        currentOrder.print(Menu.getInstance(), PromoSet.getInstance());
+                        currentOrder.print(menu, promoSet);
 
                         System.out.println ("==== OUR MENU AND SETS =====");
-                        Menu.getInstance().printMenu();
-                        PromoSet.getInstance().printSets();
+                        menu.printMenu();
+                        promoSet.printSets();
 
                         int choiceType;
 
@@ -197,10 +200,10 @@ class RRPSSApp {
                     int numPax = sc.nextInt();
                     String name = sc.next();
                     String contactNumber = sc.next();
-                    int tableId = TablesList.getInstance().check_get(Integer.parseInt(new SimpleDateFormat("yyyyMMdd").format(reservationDate)), numPax, "vacated", "reserved");
+                    int tableId = tablesList.check_get(Integer.parseInt(new SimpleDateFormat("yyyyMMdd").format(reservationDate)), numPax, "vacated", "reserved");
 
                     if (tableId != -1) {
-                        Reservation newReservation = new Reservation(reservationDate, numPax, name, contactNumber, tableId);
+                        Reservation newReservation = new Reservation(reservationDate, numPax, name, contactNumber, tableId, tablesList);
                         restaurant.getReservationList().add(newReservation);
                     } else System.out.println ("No table available for " + numPax + " pax");
                     break;
@@ -237,7 +240,7 @@ class RRPSSApp {
                     Date checkDate = new SimpleDateFormat("d/M/yyyy h:m").parse(sc.nextLine());
 
                     System.out.print ("Input the pax number: ");
-                    int idx = TablesList.getInstance().check_get(parseDatetoInteger(checkDate), sc.nextInt(), "vacated", "vacated");
+                    int idx = tablesList.check_get(parseDatetoInteger(checkDate), sc.nextInt(), "vacated", "vacated");
 
                     if (idx == -1) System.out.println ("No available table found");
                     else System.out.println ("There is an available table");
@@ -257,7 +260,7 @@ class RRPSSApp {
 
                         if (currentOrder == null) System.out.println ("No Order for this reservation found");
                         else {
-                            currentOrder.printInvoice(Menu.getInstance(), PromoSet.getInstance());
+                            currentOrder.printInvoice(menu, promoSet, rev_rep_list);
                             // delete from map
                             restaurant.getOrderList().remove(currentReservation);
                         }
@@ -266,7 +269,7 @@ class RRPSSApp {
 
                 case 10 : //Print sale revenue report by month
                     System.out.print("Input start month and end month (in integer): ");
-                    Rev_rep_list.getInstance().printReport(sc.nextInt() - 1, sc.nextInt() - 1, Menu.getInstance(), PromoSet.getInstance());
+                    rev_rep_list.printReport(sc.nextInt() - 1, sc.nextInt() - 1, menu, promoSet);
                     break;
             }
 
