@@ -36,4 +36,9 @@ class DateHandler {
 
         return cal3.getTime().after(cal1.getTime()) && cal3.getTime().before(cal2.getTime());
     }
+
+    public static Date getTimeNow() {
+        Calendar cal = Calendar.getInstance();
+        return cal.getTime();
+    }
 }
