@@ -5,42 +5,8 @@ class RRPSSApp {
     private static RRPSS restaurant = new RRPSS();
     private static Scanner sc = new Scanner(System.in);
 
-    private static Integer parseDatetoInteger (Date dateIn) {
-        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
-        String date = ft.format(dateIn);
-        ft = new SimpleDateFormat("a");
-        if (ft.format(dateIn).equals("AM")) date += "0";
-        else date += "1";
-
-        return Integer.parseInt(date);
-    }
-
     private static Date readDate() throws Exception{
         return new SimpleDateFormat("d/M/yyyy H:m").parse(sc.nextLine());
-    }
-
-    private static boolean isAMSession (Date date) throws Exception{
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(new SimpleDateFormat("HH:mm:ss").parse("11:00:00"));
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(new SimpleDateFormat("HH:mm:ss").parse("15:00:00"));
-
-        Calendar cal3 = Calendar.getInstance();
-        cal3.setTime(new SimpleDateFormat("HH:mm:ss").parse(new SimpleDateFormat("HH:mm:ss").format(date)));
-
-        return cal3.getTime().after(cal1.getTime()) && cal3.getTime().before(cal2.getTime());
-    }
-
-    private static boolean isPMSession (Date date) throws Exception{
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(new SimpleDateFormat("HH:mm:ss").parse("18:00:00"));
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(new SimpleDateFormat("HH:mm:ss").parse("22:00:00"));
-
-        Calendar cal3 = Calendar.getInstance();
-        cal3.setTime(new SimpleDateFormat("HH:mm:ss").parse(new SimpleDateFormat("HH:mm:ss").format(date)));
-
-        return cal3.getTime().after(cal1.getTime()) && cal3.getTime().before(cal2.getTime());
     }
 
     public static void main(String[] args) throws Exception {
@@ -162,7 +128,7 @@ class RRPSSApp {
                     sc.nextLine();
                     resDate = readDate();
 
-                    if (!isAMSession (resDate) && !isPMSession (resDate)) {
+                    if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
                         System.out.println ("The arrival time is out of range!");
                     } else {
                         currentReservation = restaurant.getReservation (resDate, contactNum);
@@ -186,7 +152,7 @@ class RRPSSApp {
                     sc.nextLine();
                     resDate = readDate();
 
-                    if (!isAMSession (resDate) && !isPMSession (resDate)) {
+                    if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
                         System.out.println ("The arrival time is out of range!");
                     } else {
                         currentReservation = restaurant.getReservation (resDate, contactNum);
@@ -235,14 +201,14 @@ class RRPSSApp {
                     System.out.print("Please input the reservation date arrival (in format d/m/yyyy h:m): ");
                     sc.nextLine();
                     Date reservationDate = readDate();
-                    if (!isAMSession (reservationDate) && !isPMSession (reservationDate)) {
+                    if (!DateHandler.isAMSession (reservationDate) && !DateHandler.isPMSession (reservationDate)) {
                         System.out.println ("The arrival time is out of range!");
                     } else {
                         System.out.print("Please input reservation detail in format \"number of pax, booking name, contact number\" respectively: ");
                         int numPax = sc.nextInt();
                         String name = sc.next();
                         String contactNumber = sc.next();
-                        int tableId = tablesList.check_get(parseDatetoInteger(reservationDate), numPax, "vacated", "reserved");
+                        int tableId = tablesList.check_get(DateHandler.parseDatetoInteger(reservationDate), numPax, "vacated", "reserved");
 
                         if (tableId != -1) {
                             Reservation newReservation = new Reservation(reservationDate, numPax, name, contactNumber, tableId, tablesList);
@@ -285,11 +251,11 @@ class RRPSSApp {
                     sc.nextLine();
                     Date checkDate = readDate();
 
-                    if (!isAMSession (checkDate) && !isPMSession (checkDate)) {
+                    if (!DateHandler.isAMSession (checkDate) && !DateHandler.isPMSession (checkDate)) {
                         System.out.println ("The input time is out of range!");
                     } else {
                         System.out.print ("Input the pax number: ");
-                        int idx = tablesList.check_get(parseDatetoInteger(checkDate), sc.nextInt(), "vacated", "vacated");
+                        int idx = tablesList.check_get(DateHandler.parseDatetoInteger(checkDate), sc.nextInt(), "vacated", "vacated");
 
                         if (idx == -1) System.out.println ("No available table found");
                         else System.out.println ("There is an available table");
@@ -303,7 +269,7 @@ class RRPSSApp {
                     sc.nextLine();
                     resDate = readDate();
 
-                    if (!isAMSession (resDate) && !isPMSession (resDate)) {
+                    if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
                         System.out.println ("The arrival time is out of range!");
                     } else {
                         currentReservation = restaurant.getReservation (resDate, contactNum);

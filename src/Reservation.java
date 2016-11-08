@@ -18,20 +18,15 @@ class Reservation implements Serializable {
     * Create a new reservation with the information provided, and set the reserved table to "reserved".
     * Reservation is uniquely identified by the contact number.
     */
-    public Reservation(Date arrivalTime, int numberOfPax, String name, String contactNumber, int tableID, TablesList tableslist) {
+    public Reservation(Date arrivalTime, int numberOfPax, String name, String contactNumber, int tableID, TablesList tableslist) throws Exception{
         this.arrivalTime     = arrivalTime;
         this.numberOfPax     = numberOfPax;
         this.name            = name;
         this.contactNumber   = contactNumber;
         this.tableID         = tableID;
         this.tableslist		 = tableslist;
-        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
-        String date = ft.format(arrivalTime);
-        ft = new SimpleDateFormat("a");
-        if (ft.format(arrivalTime).equals("AM")) date += "0";
-        else date += "1";
 
-        this.tableslist.changeStatus(Integer.parseInt(date), tableID, "reserved");
+        this.tableslist.changeStatus(DateHandler.parseDatetoInteger(arrivalTime), tableID, "reserved");
     }
 
     public Date getArrivalTime() {
