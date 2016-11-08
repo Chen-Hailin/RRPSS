@@ -105,8 +105,8 @@ class RRPSS {
         SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
         String date = ft.format(dateIn);
         ft = new SimpleDateFormat("a");
-        if (ft.format(dateIn) == "AM") date.concat("0");
-        else date.concat("1");
+        if (ft.format(dateIn).equals("AM")) date += "0";
+        else date += "1";
 
         return Integer.parseInt(date);
     }
