@@ -35,10 +35,10 @@ class RRPSS {
         return reservationList;
     }
 
-    public Reservation getReservation(Date date, String contactNumber) {
+    public Reservation getReservation(Date date, String contactNumber) throws Exception{
         for (Reservation rev : getReservationList()) {
             if (rev.getContactNumber().equals(contactNumber) &&
-            parseDatetoInteger(rev.getArrivalTime()).equals(parseDatetoInteger(date)))
+            DateHandler.parseDatetoInteger(rev.getArrivalTime()).equals(DateHandler.parseDatetoInteger(date)))
                 return rev;
         }
         return null;
@@ -54,9 +54,9 @@ class RRPSS {
         System.out.println ("########################");
     }
 
-    public void removeReservation (Date date, String contactNumber) {
+    public void removeReservation (Date date, String contactNumber) throws Exception{
         Reservation tmp = getReservation (date, contactNumber);
-        TablesList.getInstance().changeStatus (parseDatetoInteger(date), tmp.getTableID(), "vacated");
+        TablesList.getInstance().changeStatus (DateHandler.parseDatetoInteger(date), tmp.getTableID(), "vacated");
         getReservationList().remove(getReservation (date, contactNumber));
     }
 
@@ -101,14 +101,6 @@ class RRPSS {
         io.writeObj ("reservation_list.ser", this.reservationList);
     }
 
-    private Integer parseDatetoInteger (Date dateIn) {
-        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
-        String date = ft.format(dateIn);
-        ft = new SimpleDateFormat("a");
-        if (ft.format(dateIn) == "AM") date.concat("0");
-        else date.concat("1");
 
-        return Integer.parseInt(date);
-    }
 
 }

@@ -3,22 +3,13 @@ import java.text.SimpleDateFormat;
 
 class RRPSSApp {
     private static RRPSS restaurant = new RRPSS();
-    private static Rev_rep_list rev_rep_list = Rev_rep_list.getInstance();
-    private static TablesList tablesList = TablesList.getInstance();
-    private static Menu menu = Menu.getInstance();
-    private static PromoSet promoSet = PromoSet.getInstance();
-    private static Integer parseDatetoInteger (Date dateIn) {
-        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
-        String date = ft.format(dateIn);
-        ft = new SimpleDateFormat("a");
-        if (ft.format(dateIn) == "AM") date.concat("0");
-        else date.concat("1");
+    private static Scanner sc = new Scanner(System.in);
 
-        return Integer.parseInt(date);
+    private static Date readDate() throws Exception{
+        return new SimpleDateFormat("d/M/yyyy H:m").parse(sc.nextLine());
     }
 
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
         int choice = 1, ch = 1;
         Reservation currentReservation;
         String contactNum;
@@ -26,6 +17,11 @@ class RRPSSApp {
 
         while (1 <= choice && choice <= 10) {
             restaurant.loadData();
+
+            Rev_rep_list rev_rep_list = Rev_rep_list.getInstance();
+            TablesList tablesList = TablesList.getInstance();
+            Menu menu = Menu.getInstance();
+            PromoSet promoSet = PromoSet.getInstance();
 
             System.out.println("RRPSS:");
             System.out.println("1. Create/Update/Remove menu item");
@@ -130,13 +126,18 @@ class RRPSSApp {
                     contactNum = sc.next();
                     System.out.print("Please input the reservation date (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    resDate = new SimpleDateFormat("d/M/yyyy h:m").parse(sc.nextLine());
-                    currentReservation = restaurant.getReservation (resDate, contactNum);
-                    if (currentReservation == null) {
-                        System.out.println("Please make the reservation first for " + new SimpleDateFormat("d/M/yyyy a").format (resDate) + " session");
+                    resDate = readDate();
+
+                    if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
+                        System.out.println ("The arrival time is out of range!");
                     } else {
-                        System.out.print("Input staff handling this order in format \"employee ID, name, gender, job title\": ");
-                        restaurant.getOrderList().put(currentReservation, new Order(new Staff(sc.nextInt(), sc.next(), sc.next(), sc.next()), currentReservation));
+                        currentReservation = restaurant.getReservation (resDate, contactNum);
+                        if (currentReservation == null) {
+                            System.out.println("Please make the reservation first for " + new SimpleDateFormat("d/M/yyyy a").format (resDate) + " session");
+                        } else {
+                            System.out.print("Input staff handling this order in format \"employee ID, name, gender, job title\": ");
+                            restaurant.getOrderList().put(currentReservation, new Order(new Staff(sc.nextInt(), sc.next(), sc.next(), sc.next()), currentReservation));
+                        }
                     }
                     break;
 
@@ -149,43 +150,48 @@ class RRPSSApp {
                     contactNum = sc.next();
                     System.out.print("Please input the reservation date (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    resDate = new SimpleDateFormat("d/M/yyyy h:m").parse(sc.nextLine());
-                    currentReservation = restaurant.getReservation (resDate, contactNum);
+                    resDate = readDate();
 
-                    if (currentReservation == null) System.out.println ("No reservation found");
-                    else {
-                        currentReservation.check();
-                        System.out.print("1. Add\n2. Remove\nPlease input your choice: ");
-                        ch = sc.nextInt();
+                    if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
+                        System.out.println ("The arrival time is out of range!");
+                    } else {
+                        currentReservation = restaurant.getReservation (resDate, contactNum);
 
-                        Order currentOrder = restaurant.getOrderList().get(currentReservation);
-                        currentOrder.print(menu, promoSet);
+                        if (currentReservation == null) System.out.println ("No reservation found");
+                        else {
+                            currentReservation.check();
+                            System.out.print("1. Add\n2. Remove\nPlease input your choice: ");
+                            ch = sc.nextInt();
 
-                        System.out.println ("==== OUR MENU AND SETS =====");
-                        menu.printMenu();
-                        promoSet.printSets();
+                            Order currentOrder = restaurant.getOrderList().get(currentReservation);
+                            currentOrder.print(menu, promoSet);
 
-                        int choiceType;
+                            System.out.println ("==== OUR MENU AND SETS =====");
+                            menu.printMenu();
+                            promoSet.printSets();
 
-                        switch (ch) {
-                            case 1 : // add
-                                System.out.print("1. Add a menu\n2. Add a set\nPlease input your choice: ");
-                                choiceType = sc.nextInt();
-                                System.out.print("Input the corresonding id: ");
-                                if (choiceType == 1) currentOrder.addMenuItem (sc.nextInt());
-                                else currentOrder.addPromotionSet (sc.nextInt());
-                                break;
+                            int choiceType;
 
-                            case 2 : // remove
-                                System.out.print("1. Remove a menu\n2. Remove a set\nPlease input your choice: ");
-                                choiceType = sc.nextInt();
-                                System.out.print("Input the corresonding id: ");
-                                if (choiceType == 1) currentOrder.removeMenuItem (sc.nextInt());
-                                else currentOrder.removePromotionSet (sc.nextInt());
-                                break;
+                            switch (ch) {
+                                case 1 : // add
+                                    System.out.print("1. Add a menu\n2. Add a set\nPlease input your choice: ");
+                                    choiceType = sc.nextInt();
+                                    System.out.print("Input the corresonding id: ");
+                                    if (choiceType == 1) currentOrder.addMenuItem (sc.nextInt());
+                                    else currentOrder.addPromotionSet (sc.nextInt());
+                                    break;
 
-                            default :
-                                System.out.println("No such choice...");
+                                case 2 : // remove
+                                    System.out.print("1. Remove a menu\n2. Remove a set\nPlease input your choice: ");
+                                    choiceType = sc.nextInt();
+                                    System.out.print("Input the corresonding id: ");
+                                    if (choiceType == 1) currentOrder.removeMenuItem (sc.nextInt());
+                                    else currentOrder.removePromotionSet (sc.nextInt());
+                                    break;
+
+                                default :
+                                    System.out.println("No such choice...");
+                            }
                         }
                     }
                     break;
@@ -194,37 +200,43 @@ class RRPSSApp {
                     //TODO: check arrival date --> possible or not
                     System.out.print("Please input the reservation date arrival (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    Date reservationDate = new SimpleDateFormat("d/M/yyyy h:m").parse(sc.nextLine());
+                    Date reservationDate = readDate();
+                    if (!DateHandler.isAMSession (reservationDate) && !DateHandler.isPMSession (reservationDate)) {
+                        System.out.println ("The arrival time is out of range!");
+                    } else {
+                        System.out.print("Please input reservation detail in format \"number of pax, booking name, contact number\" respectively: ");
+                        int numPax = sc.nextInt();
+                        String name = sc.next();
+                        String contactNumber = sc.next();
+                        int tableId = tablesList.check_get(DateHandler.parseDatetoInteger(reservationDate), numPax, "vacated", "reserved");
 
-                    System.out.print("Please input reservation detail in format \"number of pax, booking name, contact number\" respectively: ");
-                    int numPax = sc.nextInt();
-                    String name = sc.next();
-                    String contactNumber = sc.next();
-                    int tableId = tablesList.check_get(Integer.parseInt(new SimpleDateFormat("yyyyMMdd").format(reservationDate)), numPax, "vacated", "reserved");
-
-                    if (tableId != -1) {
-                        Reservation newReservation = new Reservation(reservationDate, numPax, name, contactNumber, tableId, tablesList);
-                        restaurant.getReservationList().add(newReservation);
-                    } else System.out.println ("No table available for " + numPax + " pax");
+                        if (tableId != -1) {
+                            Reservation newReservation = new Reservation(reservationDate, numPax, name, contactNumber, tableId, tablesList);
+                            restaurant.getReservationList().add(newReservation);
+                        } else System.out.println ("No table available for " + numPax + " pax");
+                    }
                     break;
 
                 case 7 : //Check/Remove reservation booking
                     System.out.print ("1. check reservation\n2. remove reservation\nPlease input your choice: ");
                     ch = sc.nextInt();
-                    System.out.print ("Please input the particular contact number: ");
-
-                    contactNum = sc.next();
 
                     switch (ch) {
                         case 1 : // find reservation w.r.t. contact number
+                            System.out.print ("Please input the particular contact number: ");
+
+                            contactNum = sc.next();
                             restaurant.checkReservation (contactNum);
                             break;
 
-                        case 2 : // TODO: remove --> need to modify
-                            System.out.println ("Please input the date arrival (in format d/m/yyyy h:m): ");
+                        case 2 : // remove
+                            System.out.print ("Please input the particular contact number: ");
+
+                            contactNum = sc.next();
+                            System.out.print ("Please input the date arrival (in format d/m/yyyy h:m): ");
                             sc.nextLine();
 
-                            restaurant.removeReservation (new SimpleDateFormat("d/M/yyyy h:m").parse(sc.nextLine()), contactNum);
+                            restaurant.removeReservation (readDate(), contactNum);
 
                             System.out.println("remove done!\n");
                             break;
@@ -237,13 +249,17 @@ class RRPSSApp {
                 case 8 : //Check table availability
                     System.out.print ("Input date (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    Date checkDate = new SimpleDateFormat("d/M/yyyy h:m").parse(sc.nextLine());
+                    Date checkDate = readDate();
 
-                    System.out.print ("Input the pax number: ");
-                    int idx = tablesList.check_get(parseDatetoInteger(checkDate), sc.nextInt(), "vacated", "vacated");
+                    if (!DateHandler.isAMSession (checkDate) && !DateHandler.isPMSession (checkDate)) {
+                        System.out.println ("The input time is out of range!");
+                    } else {
+                        System.out.print ("Input the pax number: ");
+                        int idx = tablesList.check_get(DateHandler.parseDatetoInteger(checkDate), sc.nextInt(), "vacated", "vacated");
 
-                    if (idx == -1) System.out.println ("No available table found");
-                    else System.out.println ("There is an available table");
+                        if (idx == -1) System.out.println ("No available table found");
+                        else System.out.println ("There is an available table");
+                    }
                     break;
 
                 case 9 : //Print order invoice -> delete order
@@ -251,18 +267,23 @@ class RRPSSApp {
                     contactNum = sc.next();
                     System.out.print("Please input the reservation date (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    resDate = new SimpleDateFormat("d/M/yyyy h:m").parse(sc.nextLine());
-                    currentReservation = restaurant.getReservation (resDate, contactNum);
+                    resDate = readDate();
 
-                    if (currentReservation == null) System.out.println ("No reservation found");
-                    else {
-                        Order currentOrder = restaurant.getOrderList().get(currentReservation);
+                    if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
+                        System.out.println ("The arrival time is out of range!");
+                    } else {
+                        currentReservation = restaurant.getReservation (resDate, contactNum);
 
-                        if (currentOrder == null) System.out.println ("No Order for this reservation found");
+                        if (currentReservation == null) System.out.println ("No reservation found");
                         else {
-                            currentOrder.printInvoice(menu, promoSet, rev_rep_list);
-                            // delete from map
-                            restaurant.getOrderList().remove(currentReservation);
+                            Order currentOrder = restaurant.getOrderList().get(currentReservation);
+
+                            if (currentOrder == null) System.out.println ("No Order for this reservation found");
+                            else {
+                                currentOrder.printInvoice(menu, promoSet, rev_rep_list);
+                                // delete from map
+                                restaurant.getOrderList().remove(currentReservation);
+                            }
                         }
                     }
                     break;
