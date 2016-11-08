@@ -28,8 +28,9 @@ class Reservation implements Serializable {
         SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
         String date = ft.format(arrivalTime);
         ft = new SimpleDateFormat("a");
-        if (ft.format(arrivalTime) == "AM") date.concat("0");
-        else date.concat("1");
+        if (ft.format(arrivalTime).equals("AM")) date += "0";
+        else date += "1";
+
         this.tableslist.changeStatus(Integer.parseInt(date), tableID, "reserved");
     }
 
