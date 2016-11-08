@@ -38,4 +38,15 @@ public class Staff implements Serializable {
     public String getJobTitle() {
         return jobTitle;
     }
+    
+    /**
+    * Print the information of a staff.
+    */
+    public void print() {
+        System.out.println("Staff information:");
+        System.out.println("Employee ID: " + getEmployeeID());
+        System.out.println("Name: " + getName());
+        System.out.println("Gender: " + getGender());
+        System.out.println("Job Title: " + getJobTitle());
+    }
 }
