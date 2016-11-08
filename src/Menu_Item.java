@@ -8,7 +8,7 @@ public class Menu_Item implements Serializable{
 	private int itemID;
 	
 //passing in int itemID is not needed
-	public Menu_Item (int itemID, String itemType, String itemDesc, String itemName, double itemPrice){
+	public Menu_Item (String itemType, String itemDesc, String itemName, double itemPrice){
 		this.itemID = maxID;
 		this.itemType = itemType;
 		this.itemDesc = itemDesc;
