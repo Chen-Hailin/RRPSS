@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class PromoSet {
+public class PromoSet implements Serializable {
 
 	private ArrayList <Set_Item> sets = new ArrayList <Set_Item>();
 	//Exist only to defeat instantiation
