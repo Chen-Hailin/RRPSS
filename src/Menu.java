@@ -37,8 +37,8 @@ public class Menu implements Serializable {
 	}
 
 
-	public void addItem(int itemID, String itemType, String itemDesc, String itemName, double itemPrice) {
-		Menu_Item item = new Menu_Item (itemID, itemType, itemDesc, itemName, itemPrice);
+	public void addItem(String itemType, String itemDesc, String itemName, double itemPrice) {
+		Menu_Item item = new Menu_Item (itemType, itemDesc, itemName, itemPrice);
 		items.add(item);
 	}
 

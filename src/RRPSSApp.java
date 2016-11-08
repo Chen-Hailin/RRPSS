@@ -48,7 +48,7 @@ class RRPSSApp {
                     switch (ch) {
                         case 1 : // create new
                             System.out.print("Please input the new menu in format \"Type, Description, Name, Price\" respectively: ");
-                            menu.addItem(1, sc.next(), sc.next(), sc.next(), sc.nextDouble());
+                            menu.addItem(sc.next(), sc.next(), sc.next(), sc.nextDouble());
                             break;
 
                         case 2 : // update
