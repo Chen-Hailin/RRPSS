@@ -1,7 +1,7 @@
 import java.util.*;
 import java.text.SimpleDateFormat;
 
-class RRPSS {
+class RRPSS_IO {
     private static IOFileHandler io = new IOFileHandler();
 
     public static void loadData() {

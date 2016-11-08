@@ -46,9 +46,9 @@ class ReservationList implements Serializable {
         System.out.println ("########################");
     }
 
-    public void removeReservation (Date date, String contactNumber) throws Exception{
+    public void removeReservation (Date date, String contactNumber, TablesList tablesList) throws Exception{
         Reservation tmp = getReservation (date, contactNumber);
-        TablesList.getInstance().changeStatus (DateHandler.parseDatetoInteger(date), tmp.getTableID(), "vacated");
+        tablesList.changeStatus (DateHandler.parseDatetoInteger(date), tmp.getTableID(), "vacated");
         getReservationList().remove(getReservation (date, contactNumber));
     }
 }
