@@ -36,10 +36,8 @@ class RRPSS_IO {
         } catch (NullPointerException ioException) {}
 
         try {
-            StaticIDHandler maxID = (StaticIDHandler) io.readObj ("max_id.ser");
-//            System.out.println(maxID == null);
-            maxID.setInstance();
-//            System.out.println(maxID.getMaxSetID());
+            StaffList staffList = (StaffList) io.readObj ("staff.ser");
+            staffList.setInstance();
         } catch (NullPointerException ioException) {}
     }
 
@@ -50,7 +48,7 @@ class RRPSS_IO {
         io.writeObj ("table_list.ser", TablesList.getInstance());
         io.writeObj ("order_list.ser", OrderList.getInstance());
         io.writeObj ("reservation_list.ser", ReservationList.getInstance());
-        io.writeObj ("max_id.ser", StaticIDHandler.getInstance());
+        io.writeObj ("staff.ser", StaffList.getInstance());
     }
 
 }
