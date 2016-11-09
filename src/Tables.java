@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
 
+/**
+* Stores the list of tables from a certain session.
+*/
 public class Tables implements Serializable {
 	/**
 	 * tables, store all the individual table info
@@ -20,7 +23,8 @@ public class Tables implements Serializable {
 	/**
 	 * synchronized method to return a best fit table ID for a certain session, if no table suitable, return -1
      * @param pax the number of people having meal,
-     * @param Desire_status eg "vacated", Target_status the status to be changed after the table is booked
+     * @param Desire_status eg "vacated",
+     * @param Target_status the status to be changed after the table is booked
      * @return int the table ID if found, otherwise -1
      */
 	//thread safe, atomic method to get the desire table and change its status. If no such table found, return -1

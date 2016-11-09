@@ -23,18 +23,30 @@ public class Staff implements Serializable {
         this.jobTitle    = jobTitle;
     }
         
+    /**
+    * @return The id of the employee.
+    */
     public int getEmployeeID() {
         return employeeID;
     }
     
+    /**
+    * @return The name of the employee.
+    */
     public String getName() {
         return name;
     }
     
+    /**
+    * @return The gender of the employee.
+    */
     public String getGender() {
         return gender;
     }
     
+    /**
+    * @return The job title of the employee.
+    */    
     public String getJobTitle() {
         return jobTitle;
     }

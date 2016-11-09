@@ -1,6 +1,9 @@
 import java.lang.String;
 import java.io.Serializable;
 
+/**
+* Stores the information of a table.
+*/
 public class Table_Item implements Serializable{
 	/**
 	 * ID - table ID

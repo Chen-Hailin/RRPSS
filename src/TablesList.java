@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.Serializable;
 
+/**
+* Stores the information of tables from all sessions.
+*/
 public class TablesList implements Serializable{
 	//when pass the 'date' argument, please ensure the format as YYYYMMDDS
 	//Eg: 201603110 means 11th April 2016, AM session

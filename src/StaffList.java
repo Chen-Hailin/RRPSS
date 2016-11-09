@@ -2,6 +2,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.io.Serializable;
 
+/**
+* Stores the list of staff.
+*/
 public class StaffList implements Serializable {
     private Map<Integer, Staff> staffList = new HashMap<Integer, Staff>();;
         
@@ -9,7 +12,9 @@ public class StaffList implements Serializable {
     
     private StaffList(){};
     
-    // App can use this to get singleton reference
+    /**
+    * App can use this to get singleton reference
+    */
     public static StaffList getInstance(){
 		if(instance == null)
 			instance = new StaffList();
@@ -22,6 +27,10 @@ public class StaffList implements Serializable {
     
     /**
     * Add a new staff to the list.
+    * @param id The new if of the staff.
+    * @param name The new name of the staff.
+    * @param gender The new gender of the staff.
+    * @param jobTitle The new job title of the staff.
     * @return False if id already exist. True if the staff has been added to the list successfully.
     */
     public boolean addStaff(int id, String name, String gender, String jobTitle) {
