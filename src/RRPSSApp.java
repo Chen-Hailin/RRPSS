@@ -14,7 +14,7 @@ class RRPSSApp {
         String contactNum;
         Date resDate;
 
-        while (1 <= choice && choice <= 10) {
+        while (1 <= choice && choice <= 11) {
             RRPSS_IO.loadData();
 
             Rev_rep_list rev_rep_list = Rev_rep_list.getInstance();
@@ -23,12 +23,13 @@ class RRPSSApp {
             PromoSet promoSet = PromoSet.getInstance();
             OrderList orderList = OrderList.getInstance();
             ReservationList reservationList = ReservationList.getInstance();
+            StaffList staffList = StaffList.getInstance();
 
             Date today = DateHandler.getTimeNow();
             // refresh table
 //            tablesList.remove_old(DateHandler.parseDatetoInteger(today));
             // remove expired reservation
-            reservationList.removeExpiredReservation(today);
+            reservationList.removeExpiredReservation(today, tablesList);
 
             System.out.println("RRPSS:");
             System.out.println("1. Create/Update/Remove menu item");
@@ -41,6 +42,7 @@ class RRPSSApp {
             System.out.println("8. Check table availability");
             System.out.println("9. Print order invoice");
             System.out.println("10. Print sale revenue report by month");
+            System.out.println("11. Add/Remove staff");
             System.out.print("Please input your choice: ");
 
             choice = sc.nextInt();
@@ -84,7 +86,7 @@ class RRPSSApp {
                     switch (ch) {
                         case 1 : // create new
                             System.out.print("Please input the new promo set in format \"Name, Price\" respectively: ");
-                            promoSet.addSet(1, sc.next(), sc.nextDouble());
+                            promoSet.addSet(sc.next(), sc.nextDouble());
                             break;
 
                         case 2 : // update
@@ -118,8 +120,8 @@ class RRPSSApp {
                             break;
 
                         case 3 : // remove
-                        System.out.print("Please input the id which will be removed: ");
-                            promoSet.MenuItemRemove(sc.nextInt());
+                            System.out.print("Please input the id which will be removed: ");
+                            promoSet.RemoveSet(sc.nextInt());
                             break;
 
                         default :
@@ -129,7 +131,7 @@ class RRPSSApp {
                     break;
 
                 case 3 : //Create order, (chl: i think better to a staff list to choose which staff)
-                    System.out.print("Input your reservation contactNumber: ");
+                    System.out.print("Input your reservation contact number: ");
                     contactNum = sc.next();
                     System.out.print("Please input the reservation date (in format d/m/yyyy h:m): ");
                     sc.nextLine();
@@ -144,13 +146,16 @@ class RRPSSApp {
                         if (currentReservation == null) {
                             System.out.println("Please make the reservation first for " + new SimpleDateFormat("d/M/yyyy a").format (resDate) + " session");
                         } else {
-                            System.out.print("Input staff handling this order in format \"employee ID, name, gender, job title\": ");
-                            orderList.getOrderList().put(currentReservation, new Order(new Staff(sc.nextInt(), sc.next(), sc.next(), sc.next()), currentReservation));
+                            System.out.println ("==== STAFF LIST ====");
+                            staffList.printAll();
+                            System.out.print("Input employee id which handling this order: ");
+                            orderList.getOrderList().put(currentReservation, new Order(staffList.getStaff(sc.nextInt()), currentReservation));
                         }
                     }
                     break;
 
                 case 4 : //View order
+                    System.out.println ("==== ORDER LIST ====");
                     orderList.printOrder();
                     break;
 
@@ -318,6 +323,28 @@ class RRPSSApp {
                 case 10 : //Print sale revenue report by month
                     System.out.print("Input start month and end month (in integer): ");
                     rev_rep_list.printReport(sc.nextInt() - 1, sc.nextInt() - 1, menu, promoSet);
+                    break;
+
+                case 11 : // add/remove staff
+                    System.out.println("==== STAFF LIST ====");
+                    staffList.printAll();
+                    System.out.print("1. Add\n2. Remove\nPlease input your choice: ");
+                    ch = sc.nextInt();
+
+                    switch (ch) {
+                        case 1 : //add
+                            System.out.print("Please input staff info in format \"name, gender, position\": ");
+                            staffList.addStaff(sc.next(), sc.next(), sc.next());
+                            break;
+
+                        case 2 : //remove
+                            System.out.print("Please input employee id which going to be removed: ");
+                            staffList.removeStaff(sc.nextInt());
+                            break;
+
+                        default :
+                            System.out.println ("No such choice...");
+                    }
                     break;
             }
 
