@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 public class Set_Item implements Serializable {
-	    private static int maxSetID = 1;
 	    private int setID;
 	    private String setName;
 		private ArrayList <Menu_Item> items = new ArrayList<Menu_Item> ();
@@ -15,8 +14,8 @@ public class Set_Item implements Serializable {
 		public Set_Item(int setID, String setName, double setPrice){
 			this.setName = setName;
 			this.setPrice = setPrice;
-			this.setID = maxSetID;
-			maxSetID++;
+			this.setID = StaticIDHandler.getInstance().getMaxSetID();
+			StaticIDHandler.getInstance().setMaxSetID(this.setID + 1);
 		}
 
 		public void setSetName(String setName) {this.setName = setName;}
