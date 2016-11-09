@@ -3,21 +3,22 @@ import java.util.List;
 import java.io.Serializable;
 
 public class Tables implements Serializable {
+	/**
+	 * tables, store all the individual table info
+	 */
 	private List<Table_Item> tables = new ArrayList<Table_Item>();
-	public Tables(){
-		for(int i = 0; i < 30; i++){
-			if(i < 5)
-				tables.add(new Table_Item(i, 10));
-			else if(i < 10)
-				tables.add(new Table_Item(i, 8));
-			else if(i < 20)
-				tables.add(new Table_Item(i, 4));
-			else
-				tables.add(new Table_Item(i, 2));
+	/**
+	 * Defaut constructor, create a Tables object
+	 * @param all_tables all currently tables in restaurant
+	 */
+	public Tables(List<Integer> all_tables){
+		for(int i = 0; i < all_tables.size(); i++){
+			tables.add(new Table_Item(i, all_tables.get(i)));
 		}
 	}
 
 	/**
+	 * synchronized method to return a best fit table ID for a certain session, if no table suitable, return -1
      * @param pax the number of people having meal,
      * @param Desire_status eg "vacated", Target_status the status to be changed after the table is booked
      * @return int the table ID if found, otherwise -1
@@ -44,6 +45,11 @@ public class Tables implements Serializable {
 	}
 
 	//public method provided to change back the status of certain table
+	/**
+	 * public method for other class to change certain table status
+	 * @param ID table ID
+	 * @param Status the table status
+	 */
 	public void ChangeStatus(int ID, String Status){
 		tables.get(ID).changeStatus(Status);
 	}

@@ -7,13 +7,14 @@ public class Menu_Item implements Serializable{
 	private int itemID;
 
 //passing in int itemID is not needed
-	public Menu_Item (String itemType, String itemDesc, String itemName, double itemPrice){
+	public Menu_Item (int MaxID, String itemType, String itemDesc, String itemName, double itemPrice){
 		this.itemType = itemType;
 		this.itemDesc = itemDesc;
 		this.itemName = itemName;
 		this.itemPrice = itemPrice;
-		this.itemID = StaticIDHandler.getInstance().getMaxMenuID();
-		StaticIDHandler.getInstance().setMaxMenuID(this.itemID + 1);
+		//this.itemID = StaticIDHandler.getInstance().getMaxMenuID();
+		//StaticIDHandler.getInstance().setMaxMenuID(this.itemID + 1);
+		this.itemID = MaxID;
 	}
 
 	public void setItemName(String itemName){

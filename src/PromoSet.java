@@ -4,6 +4,7 @@ import java.io.Serializable;
 public class PromoSet implements Serializable {
 
 	private ArrayList <Set_Item> sets = new ArrayList <Set_Item>();
+	private int MaxID = 0;
 	//Exist only to defeat instantiation
 	private PromoSet() {}
 
@@ -36,16 +37,27 @@ public class PromoSet implements Serializable {
 	}
 
 
-	public void addSet(int setID, String setName, double setPrice) {
-		Set_Item set = new Set_Item (setID, setName, setPrice);
+	public void addSet(String setName, double setPrice) {
+		Set_Item set = new Set_Item (MaxID, setName, setPrice);
 		sets.add(set);
+		MaxID++;
 	}
-
-	public void MenuItemRemove(int setID){
+	
+	public void RemoveSet(int setID){
 		Set_Item set = getSetItem(setID);
 		sets.remove(set);
 	}
 
+	public void addItemToSet(int setID, Menu_Item item){
+		Set_Item set = getSetItem(setID);
+		set.addItem(item);
+	}
+	
+	public void removeItemFromSet(int setID, Menu_Item item){
+		Set_Item set = getSetItem(setID);
+		set.removeItem(item);
+	}
+	
     public void printSets ()
     {
 			System.out.println("====== Promotional Sets ======");

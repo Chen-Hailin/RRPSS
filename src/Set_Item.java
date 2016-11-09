@@ -14,8 +14,8 @@ public class Set_Item implements Serializable {
 		public Set_Item(int setID, String setName, double setPrice){
 			this.setName = setName;
 			this.setPrice = setPrice;
-			this.setID = StaticIDHandler.getInstance().getMaxSetID();
-			StaticIDHandler.getInstance().setMaxSetID(this.setID + 1);
+			//this.setID = StaticIDHandler.getInstance().getMaxSetID();
+			//StaticIDHandler.getInstance().setMaxSetID(this.setID + 1);
 		}
 
 		public void setSetName(String setName) {this.setName = setName;}

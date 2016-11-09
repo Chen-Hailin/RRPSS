@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 public class Menu implements Serializable {
 	private ArrayList <Menu_Item> items = new ArrayList<Menu_Item> ();
-
+	private int MaxID = 0;
 	//Exist only to defeat instantiation
     private Menu () {}
 
@@ -38,8 +38,9 @@ public class Menu implements Serializable {
 
 
 	public void addItem(String itemType, String itemDesc, String itemName, double itemPrice) {
-		Menu_Item item = new Menu_Item (itemType, itemDesc, itemName, itemPrice);
+		Menu_Item item = new Menu_Item (MaxID, itemType, itemDesc, itemName, itemPrice);
 		items.add(item);
+		MaxID++;
 	}
 
 	public void MenuItemRemove(int itemID){
