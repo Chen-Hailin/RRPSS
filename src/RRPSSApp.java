@@ -135,7 +135,9 @@ class RRPSSApp {
                     sc.nextLine();
                     resDate = readDate();
 
-                    if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
+                    if (resDate.before(DateHandler.getTimeNow())) {
+                        System.out.println ("The date have already passed...");
+                    } else if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
                         System.out.println ("The arrival time is out of range!");
                     } else {
                         currentReservation = reservationList.getReservation (resDate, contactNum);
@@ -159,7 +161,9 @@ class RRPSSApp {
                     sc.nextLine();
                     resDate = readDate();
 
-                    if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
+                    if (resDate.before(DateHandler.getTimeNow())) {
+                        System.out.println ("The date have already passed...");
+                    } else if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
                         System.out.println ("The arrival time is out of range!");
                     } else {
                         currentReservation = reservationList.getReservation (resDate, contactNum);
@@ -207,16 +211,23 @@ class RRPSSApp {
                     System.out.print("Please input the reservation date arrival (in format d/m/yyyy h:m): ");
                     sc.nextLine();
                     Date reservationDate = readDate();
-                    if (!DateHandler.isAMSession (reservationDate) && !DateHandler.isPMSession (reservationDate)) {
+
+                    if (reservationDate.before(DateHandler.getTimeNow())) {
+                        System.out.println ("The date have already passed...");
+                    } else if (!DateHandler.isAMSession (reservationDate) && !DateHandler.isPMSession (reservationDate)) {
                         System.out.println ("The arrival time is out of range!");
                     } else {
                         System.out.print("Please input reservation detail in format \"number of pax, booking name, contact number\" respectively: ");
                         int numPax = sc.nextInt();
                         String name = sc.next();
                         String contactNumber = sc.next();
-                        int tableId = tablesList.check_get(DateHandler.parseDatetoInteger(reservationDate), numPax, "vacated", "reserved");
 
-                        if (tableId != -1) {
+                        int tableId = tablesList.check_get(DateHandler.parseDatetoInteger(reservationDate), numPax, "vacated", "reserved");
+                        Reservation rev = reservationList.getReservation(reservationDate, contactNumber);
+
+                        if (rev != null) {
+                            System.out.println ("You cannot make another reservation with same contant number in a session...");
+                        } else if (tableId != -1) {
                             Reservation newReservation = new Reservation(reservationDate, numPax, name, contactNumber, tableId, tablesList);
                             reservationList.getReservationList().add(newReservation);
                         } else System.out.println ("No table available for " + numPax + " pax");
@@ -242,9 +253,15 @@ class RRPSSApp {
                             System.out.print ("Please input the date arrival (in format d/m/yyyy h:m): ");
                             sc.nextLine();
 
-                            reservationList.removeReservation (readDate(), contactNum, tablesList);
+                            resDate = readDate();
+                            if (resDate.before(DateHandler.getTimeNow())) {
+                                System.out.println ("The date have already passed...");
+                            } else {
+                                reservationList.removeReservation (resDate, contactNum, tablesList);
 
-                            System.out.println("remove done!\n");
+                                System.out.println("remove done!\n");
+                            }
+
                             break;
 
                         default :
@@ -257,7 +274,9 @@ class RRPSSApp {
                     sc.nextLine();
                     Date checkDate = readDate();
 
-                    if (!DateHandler.isAMSession (checkDate) && !DateHandler.isPMSession (checkDate)) {
+                    if (checkDate.before(DateHandler.getTimeNow())) {
+                        System.out.println ("The date have already passed...");
+                    } else if (!DateHandler.isAMSession (checkDate) && !DateHandler.isPMSession (checkDate)) {
                         System.out.println ("The input time is out of range!");
                     } else {
                         System.out.print ("Input the pax number: ");
@@ -275,7 +294,9 @@ class RRPSSApp {
                     sc.nextLine();
                     resDate = readDate();
 
-                    if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
+                    if (resDate.before(DateHandler.getTimeNow())) {
+                        System.out.println ("The date have already passed...");
+                    } else if (!DateHandler.isAMSession (resDate) && !DateHandler.isPMSession (resDate)) {
                         System.out.println ("The arrival time is out of range!");
                     } else {
                         currentReservation = reservationList.getReservation (resDate, contactNum);
@@ -300,6 +321,7 @@ class RRPSSApp {
                     break;
             }
 
+            System.out.println();
             // write the data again
             RRPSS_IO.storeData();
         }
