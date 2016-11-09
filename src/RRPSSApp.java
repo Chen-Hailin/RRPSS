@@ -28,7 +28,7 @@ class RRPSSApp {
             // refresh table
 //            tablesList.remove_old(DateHandler.parseDatetoInteger(today));
             // remove expired reservation
-            reservationList.removeExpiredReservation(today, tablesList);
+            reservationList.removeExpiredReservation(today);
 
             System.out.println("RRPSS:");
             System.out.println("1. Create/Update/Remove menu item");
