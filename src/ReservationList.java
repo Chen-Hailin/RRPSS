@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
 * Stores the list of reservation.
 */
-class ReservationList implements Serializable {
+public class ReservationList implements Serializable {
 
 	private List<Reservation> reservationList;
 
@@ -59,6 +59,7 @@ class ReservationList implements Serializable {
 	* Get a certain reservation from date and contact number.
 	* @param date The date when the reservation is made.
 	* @param contactNumber The contact number of person who made the reservation.
+	* @return The required reservation.
 	*/ 
     public Reservation getReservation(Date date, String contactNumber) throws Exception{
         for (Reservation rev : getReservationList()) {
