@@ -26,7 +26,7 @@ public class Order implements Serializable {
     /**
     * Returns the reservation on this order.
     * @return The reservation object from this order.
-    */ 
+    */
     public Reservation getReservation() {
         return reservation;
     }
@@ -40,7 +40,7 @@ public class Order implements Serializable {
     }
 
     /**
-    * Returns the list of menu item. 
+    * Returns the list of menu item.
     * @return List of menu item id ordered by this order.
     */
     public List<Integer> getMenuItemIDs() {
@@ -57,7 +57,7 @@ public class Order implements Serializable {
 
     /**
     * Add an order from the menu item id.
-    * @param menuItemID the id of the menu that is going to be aded to the order.
+    * @param menuItemID the id of the menu that is going to be added to the order.
     */
     public void addMenuItem(Integer menuItemID) {
         menuItemIDs.add(menuItemID);
@@ -80,7 +80,7 @@ public class Order implements Serializable {
     public boolean removeMenuItem(Integer menuItemID) {
         return menuItemIDs.remove(menuItemID);
     }
-    
+
     /**
     * Print the order details.
     * The reservation, and all item ordered are listed out by this method.
@@ -106,7 +106,7 @@ public class Order implements Serializable {
     * @param menu The class which contains id of all menu items.
     * @param promoSet The class which contains id of all set items.
     * @param rev_rep_list The class which contains all the reports.
-    */ 
+    */
     public void printInvoice(Menu menu, PromoSet promoSet, Rev_rep_list rev_rep_list) {
         print(menu, promoSet);
 
@@ -118,7 +118,7 @@ public class Order implements Serializable {
         for (int id: getPromotionSetIDs()) {
             total += promoSet.getSetItem(id).getSetPrice();
         }
-        
+
         System.out.println("Total: " + total);
 
         rev_rep_list.addRevReport(getMenuItemIDs(), getPromotionSetIDs(), total, getReservation().getArrivalTime(), menu, promoSet);
