@@ -1,9 +1,15 @@
 import java.util.*;
 import java.text.SimpleDateFormat;
 
-class RRPSS_IO {
+/**
+* To handle the I/O for the App.
+*/ 
+public class RRPSS_IO {
     private static IOFileHandler io = new IOFileHandler();
 
+	/**
+	* To load the data.
+	*/ 
     public static void loadData() {
         try {
             Rev_rep_list currentRev = (Rev_rep_list) io.readObj ("revenue_list.ser");
@@ -41,6 +47,9 @@ class RRPSS_IO {
         } catch (NullPointerException ioException) {}
     }
 
+	/**
+	* To store the data.
+	*/
     public static void storeData() {
         io.writeObj ("revenue_list.ser", Rev_rep_list.getInstance());
         io.writeObj ("promo_set.ser", PromoSet.getInstance());
