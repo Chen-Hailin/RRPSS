@@ -28,11 +28,9 @@ public class StaffList implements Serializable {
 
     /**
     * Add a new staff to the list.
-    * @param id The new if of the staff.
     * @param name The new name of the staff.
     * @param gender The new gender of the staff.
     * @param jobTitle The new job title of the staff.
-    * @return False if id already exist. True if the staff has been added to the list successfully.
     */
     public void addStaff(String name, String gender, String jobTitle) {
         staffList.put(new Integer(maxID), new Staff(maxID, name, gender, jobTitle));
