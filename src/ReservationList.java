@@ -66,9 +66,4 @@ class ReservationList implements Serializable {
             }
         }
     }
-
-    public void printList(){
-    	for(Reservation rev : getReservationList())
-    		rev.check();
-    }
 }

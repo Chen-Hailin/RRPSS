@@ -11,7 +11,7 @@ class RRPSSApp {
         Date resDate;
 
         while (1 <= choice && choice <= 12) {
-            //RRPSS_IO.loadData();
+            RRPSS_IO.loadData();
 
             Rev_rep_list rev_rep_list = Rev_rep_list.getInstance();
             TablesList tablesList = TablesList.getInstance();
@@ -246,7 +246,6 @@ class RRPSSApp {
 
                     switch (ch) {
                         case 1 : // find reservation w.r.t. contact number
-                        	reservationList.printList();
                             System.out.print ("Please input the particular contact number: ");
 
                             contactNum = sc.next();
@@ -364,7 +363,7 @@ class RRPSSApp {
 
             System.out.println();
             // write the data again
-            //RRPSS_IO.storeData();
+            RRPSS_IO.storeData();
         }
 
         sc.close();
