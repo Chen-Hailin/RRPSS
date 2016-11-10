@@ -86,9 +86,11 @@ public class TablesList implements Serializable{
      * @param today the current date-session
      */
 	public void remove_old(int today){
-		for(Integer date : tables_with_date.keySet()){
-			if(date < today)
-				tables_with_date.remove(date);
+		if(!tables_with_date.isEmpty()){
+			for(Integer date : tables_with_date.keySet()){
+				if(date < today)
+					tables_with_date.remove(date);
+			}
 		}
 	}
 	/**
