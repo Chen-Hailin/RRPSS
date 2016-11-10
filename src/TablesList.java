@@ -108,6 +108,9 @@ public class TablesList implements Serializable{
 			all_tables.add(pax);
 	}
 	
+	/**
+	* Print all available tables.
+	*/
 	public void printTable(){
 		for(int i = 0; i < all_tables.size(); i++)
 			System.out.println("table pax:"+all_tables.get(i));
