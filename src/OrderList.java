@@ -28,7 +28,14 @@ public class OrderList implements Serializable {
     public void setInstance() {
         instance = this;
     }
-
+    /**
+     * add an order into orderList
+     * @param staff the staff handling this order
+     * @param currentReservation the reservation associated with this order
+     */
+    public void addOrder(Staff staff, Reservation currentReservation){
+    	this.getOrderList().put(currentReservation, new Order(staff, currentReservation));
+    }
 	/**
 	* @return A hash map which map a reservation to an order.
 	*/

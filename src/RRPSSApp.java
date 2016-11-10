@@ -9,10 +9,9 @@ class RRPSSApp {
         Reservation currentReservation;
         String contactNum;
         Date resDate;
-        try{
         while (1 <= choice && choice <= 12) {
-	            RRPSS_IO.loadData();
-	
+        	 try{     
+        		RRPSS_IO.loadData();
 	            Rev_rep_list rev_rep_list = Rev_rep_list.getInstance();
 	            TablesList tablesList = TablesList.getInstance();
 	            Menu menu = Menu.getInstance();
@@ -92,17 +91,17 @@ class RRPSSApp {
 	                            System.out.print("Please input the id to be updated: ");
 	                            int promoId = sc.nextInt();
 	
-	                            System.out.print("1. Add new menu to the set\n2. Remove a menu from the set\n3. Update the data of the set\n4. Cancle\nPlease input your choice: ");
+	                            System.out.print("1. Add new menu item to the set\n2. Remove a menu item from the set\n3. Update the data of the set\n4. Cancle\nPlease input your choice: ");
 	                            int promoChoice = sc.nextInt();
 	
 	                            switch (promoChoice) {
-	                                case 1 : // add new menu to the set
+	                                case 1 : // add new menu item to the set
 	                                    menu.printMenu();
 	                                    System.out.print("Please input the menu item id which will be inserted to the set: ");
 	                                    promoSet.getSetItem(promoId).addItem(menu.getMenuItem(sc.nextInt()));
 	                                    break;
 	
-	                                case 2 : // remove a menu from the set
+	                                case 2 : // remove a menu item from the set
 	                                	menu.printMenu();
 	                                    System.out.print("Please input the menu item id which will be removed: ");
 	                                    promoSet.getSetItem(promoId).removeItem(menu.getMenuItem(sc.nextInt()));
@@ -148,7 +147,7 @@ class RRPSSApp {
 	                            System.out.println ("==== STAFF LIST ====");
 	                            staffList.printAll();
 	                            System.out.print("Input employee id which handling this order: ");
-	                            orderList.getOrderList().put(currentReservation, new Order(staffList.getStaff(sc.nextInt()), currentReservation));
+	                            orderList.addOrder(staffList.getStaff(sc.nextInt()), currentReservation);
 	                        }
 	                    }
 	                    break;
@@ -189,7 +188,7 @@ class RRPSSApp {
 	
 	                            switch (ch) {
 	                                case 1 : // add
-	                                    System.out.print("1. Add a menu\n2. Add a set\nPlease input your choice: ");
+	                                    System.out.print("1. Add a menu item\n2. Add a set\nPlease input your choice: ");
 	                                    choiceType = sc.nextInt();
 	                                    System.out.print("Input the corresonding id: ");
 	                                    if (choiceType == 1) currentOrder.addMenuItem (sc.nextInt());
@@ -197,7 +196,7 @@ class RRPSSApp {
 	                                    break;
 	
 	                                case 2 : // remove
-	                                    System.out.print("1. Remove a menu\n2. Remove a set\nPlease input your choice: ");
+	                                    System.out.print("1. Remove a menu item\n2. Remove a set\nPlease input your choice: ");
 	                                    choiceType = sc.nextInt();
 	                                    System.out.print("Input the corresonding id: ");
 	                                    if (choiceType == 1) currentOrder.removeMenuItem (sc.nextInt());
@@ -227,9 +226,9 @@ class RRPSSApp {
 	                        String contactNumber = sc.next();
 	
 	                        int tableId = tablesList.check_get(DateHandler.parseDatetoInteger(reservationDate), numPax, "vacated", "reserved");
-	                        Reservation rev = reservationList.getReservation(reservationDate, contactNumber);
+
 	
-	                        if (rev != null) {
+	                        if (reservationList.getReservation(reservationDate, contactNumber) != null) {
 	                            System.out.println ("You cannot make another reservation with same contant number in a session...");
 	                        } else if (tableId != -1) {
 	                            //Reservation newReservation = new Reservation(reservationDate, numPax, name, contactNumber, tableId, tablesList);
@@ -367,10 +366,13 @@ class RRPSSApp {
 	            // write the data again
 	            RRPSS_IO.storeData();
         	}
+        	catch(Exception e){
+             	System.out.println(e.getMessage());
+             	System.out.println("Error occured, please check your input and try again");
+             	choice = 1;
+             }
 	   }
-        catch(Exception e){
-        	System.out.println("Error occured, please check your input and try again");
-        }
+        
 	    sc.close();
     }
 }

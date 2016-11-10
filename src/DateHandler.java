@@ -39,7 +39,7 @@ class DateHandler {
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(new SimpleDateFormat("HH:mm:ss").parse("11:00:00"));
         Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(new SimpleDateFormat("HH:mm:ss").parse("17:00:00"));
+        cal2.setTime(new SimpleDateFormat("HH:mm:ss").parse("15:00:00"));
 
         Calendar cal3 = Calendar.getInstance();
         cal3.setTime(new SimpleDateFormat("HH:mm:ss").parse(new SimpleDateFormat("HH:mm:ss").format(date)));
