@@ -16,8 +16,9 @@ public class ReservationList implements Serializable {
     private ReservationList(){};
 	
     /**
-    * APP can use this to get the singleton reference
-    */
+     * APP can use this to get the singleton reference
+     * @return instance reservationList
+     */
     public static ReservationList getInstance(){
         if(instance == null)
             instance = new ReservationList();
@@ -48,7 +49,8 @@ public class ReservationList implements Serializable {
 	* @param name The person name who made this reservation.
 	* @param contactNumber The contact number of the person who made the reservation.
 	* @param tableID The id of the reserved tableID.
-	* @param tablesList The class which stores all the tables list.	
+	* @param tablesList The class which stores all the tables list.
+	* @throws Exception	
 	*/ 
     public void addReservation(Date reservationDate, int numberOfPax, String name, String contactNumber, int tableID, TablesList tablesList)throws Exception{
     	getReservationList().add(new Reservation(reservationDate, numberOfPax, name, contactNumber, tableID, tablesList));
@@ -60,6 +62,7 @@ public class ReservationList implements Serializable {
 	* @param date The date when the reservation is made.
 	* @param contactNumber The contact number of person who made the reservation.
 	* @return The required reservation.
+	* @throws Exception
 	*/ 
     public Reservation getReservation(Date date, String contactNumber) throws Exception{
         for (Reservation rev : getReservationList()) {
@@ -90,6 +93,7 @@ public class ReservationList implements Serializable {
 	* @param date The date when the reservation is made.
 	* @param contactNumber The contactNumber of the person who made the reservation.
 	* @param tablesList The class which contains all tables list.
+	* @throws Exception
 	*/
     public void removeReservation (Date date, String contactNumber, TablesList tablesList) throws Exception{
         Reservation tmp = getReservation (date, contactNumber);
@@ -109,5 +113,16 @@ public class ReservationList implements Serializable {
                 it.remove();
             }
         }
+    }
+    /**
+     * Print all reservation in given session
+     * @param date The session date
+     * @throws Exception 
+     */
+    public void checkReservationDate(Date date) throws Exception{
+    	for(Reservation rev : getReservationList()){
+    		if(DateHandler.parseDatetoInteger(rev.getArrivalTime()).equals(DateHandler.parseDatetoInteger(date)))
+    			rev.check();
+    	}
     }
 }

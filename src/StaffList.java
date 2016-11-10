@@ -15,6 +15,7 @@ public class StaffList implements Serializable {
 
     /**
     * App can use this to get singleton reference
+    * @return instance staffList
     */
     public static StaffList getInstance(){
 		if(instance == null)

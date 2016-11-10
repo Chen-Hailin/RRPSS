@@ -13,8 +13,9 @@ public class Menu implements Serializable {
     private static Menu instance = null;
     
     /**
-    * APP can use this to get the singleton reference
-    */
+     * APP can use this to get the singleton reference
+     * @return instance menu
+     */
     public static Menu getInstance(){
 		if(instance == null)
 			instance = new Menu();

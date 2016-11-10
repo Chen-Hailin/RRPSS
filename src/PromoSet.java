@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class PromoSet implements Serializable {
 
 	private ArrayList <Set_Item> sets = new ArrayList <Set_Item>();
-	private int MaxID = 0;
+	private int MaxID = 1;
 	//Exist only to defeat instantiation
 	private PromoSet() {}
 

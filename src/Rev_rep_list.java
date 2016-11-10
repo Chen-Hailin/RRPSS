@@ -22,8 +22,9 @@ public class Rev_rep_list implements Serializable {
     }
 
     /**
-    * APP can use this to get the singleton reference
-    */
+     * APP can use this to get the singleton reference
+     * @return instance rev_rep_list
+     */
     public static Rev_rep_list getInstance(){
 		if(instance == null)
 			instance = new Rev_rep_list();
@@ -40,6 +41,8 @@ public class Rev_rep_list implements Serializable {
     * @param promoSetIDs List of promo item which is going to be added to the report.
     * @param total The total price of the added items.
     * @param date The date of the order.
+    * @param menu menu
+    * @param promoSet promoSet
     */
     public void addRevReport(List<Integer> menuItemIDs, List<Integer> promoSetIDs, double total, Date date, Menu menu, PromoSet promoSet) {
         Calendar calendar = Calendar.getInstance();
@@ -48,7 +51,6 @@ public class Rev_rep_list implements Serializable {
 
         if (reports[month] == null)
             reports[month] = new Rev_report();
-        reports[month].print(menu, promoSet);
         reports[month].addOrder(menuItemIDs, promoSetIDs, total);
     }
 

@@ -241,7 +241,7 @@ class RRPSSApp {
 	                    break;
 	
 	                case 7 : //Check/Remove reservation booking
-	                    System.out.print ("1. check reservation\n2. remove reservation\nPlease input your choice: ");
+	                    System.out.print ("1. check one reservation\n2. remove reservation\n3. check all by date\nPlease input your choice: ");
 	                    ch = sc.nextInt();
 	
 	                    switch (ch) {
@@ -269,7 +269,13 @@ class RRPSSApp {
 	                            }
 	
 	                            break;
-	
+	                            
+	                        case 3:
+	                        	System.out.print ("Please input the date arrival (in format d/m/yyyy h:m): ");
+	                        	sc.nextLine();
+	                        	resDate = DateHandler.readDate(sc.nextLine());
+	                        	reservationList.checkReservationDate(resDate);
+	                        	break;
 	                        default :
 	                            System.out.println ("No such case...");
 	                    }

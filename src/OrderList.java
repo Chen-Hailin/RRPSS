@@ -14,8 +14,9 @@ public class OrderList implements Serializable {
     private OrderList(){};
 
     /**
-    * APP can use this to get the singleton reference
-    */
+     * APP can use this to get the singleton reference
+     * @return instance orderList
+     */
     public static OrderList getInstance(){
         if(instance == null)
             instance = new OrderList();

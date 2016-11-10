@@ -23,6 +23,7 @@ public class Reservation implements Serializable {
     * @param contactNumber The contact number of the person who reserved.
     * @param tableID The reserved table ID.
     * @param tableslist The class which contains information of all tables.
+    * @throws Exception
     */
     public Reservation(Date arrivalTime, int numberOfPax, String name, String contactNumber, int tableID, TablesList tableslist) throws Exception {
         this.arrivalTime     = arrivalTime;
