@@ -13,6 +13,10 @@ class DateHandler {
         return Integer.parseInt(date);
     }
 
+    public static Date readDate(String date) throws Exception{
+        return new SimpleDateFormat("d/M/yyyy H:m").parse(date);
+    }
+    
     public static boolean isAMSession (Date date) throws Exception{
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(new SimpleDateFormat("HH:mm:ss").parse("11:00:00"));

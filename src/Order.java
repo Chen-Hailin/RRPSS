@@ -121,6 +121,6 @@ public class Order implements Serializable {
         
         System.out.println("Total: " + total);
 
-        rev_rep_list.addRevReport(getMenuItemIDs(), getPromotionSetIDs(), total, getReservation().getArrivalTime());
+        rev_rep_list.addRevReport(getMenuItemIDs(), getPromotionSetIDs(), total, getReservation().getArrivalTime(), menu, promoSet);
     }
 }

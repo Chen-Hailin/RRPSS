@@ -4,18 +4,14 @@ import java.text.SimpleDateFormat;
 class RRPSSApp {
     private static Scanner sc = new Scanner(System.in);
 
-    private static Date readDate() throws Exception{
-        return new SimpleDateFormat("d/M/yyyy H:m").parse(sc.nextLine());
-    }
-
     public static void main(String[] args) throws Exception {
         int choice = 1, ch = 1;
         Reservation currentReservation;
         String contactNum;
         Date resDate;
 
-        while (1 <= choice && choice <= 11) {
-            RRPSS_IO.loadData();
+        while (1 <= choice && choice <= 12) {
+            //RRPSS_IO.loadData();
 
             Rev_rep_list rev_rep_list = Rev_rep_list.getInstance();
             TablesList tablesList = TablesList.getInstance();
@@ -29,11 +25,12 @@ class RRPSSApp {
             // refresh table
 //            tablesList.remove_old(DateHandler.parseDatetoInteger(today));
             // remove expired reservation
-            reservationList.removeExpiredReservation(today, tablesList);
+            reservationList.removeExpiredReservation(today);
+            tablesList.remove_old(DateHandler.parseDatetoInteger(today));
 
             System.out.println("RRPSS:");
-            System.out.println("1. Create/Update/Remove menu item");
-            System.out.println("2. Create/Update/Remove promotion");
+            System.out.println("1. Check & Create/Update/Remove menu item");
+            System.out.println("2. Check & Create/Update/Remove promotion");
             System.out.println("3. Create order");
             System.out.println("4. View order");
             System.out.println("5. Add/Remove order item/s to/from order");
@@ -43,6 +40,7 @@ class RRPSSApp {
             System.out.println("9. Print order invoice");
             System.out.println("10. Print sale revenue report by month");
             System.out.println("11. Add/Remove staff");
+            System.out.println("12. Check/Add tables");
             System.out.print("Please input your choice: ");
 
             choice = sc.nextInt();
@@ -51,7 +49,7 @@ class RRPSSApp {
                 case 1 : //Create/Update/Remove menu item
                     // show current menu
                     menu.printMenu();
-                    System.out.print("\n1. Create\n2. Update\n3. Remove\nPlease input your choice: ");
+                    System.out.print("\n1. Create\n2. Update\n3. Remove\n4. cancel\nPlease input your choice: ");
                     ch = sc.nextInt();
 
                     switch (ch) {
@@ -72,8 +70,8 @@ class RRPSSApp {
                             menu.MenuItemRemove(sc.nextInt());
                             break;
 
-                        default :
-                            System.out.println("No such choice...\n");
+                        case 4:
+                            break;
                     }
 
                     break;
@@ -135,7 +133,7 @@ class RRPSSApp {
                     contactNum = sc.next();
                     System.out.print("Please input the reservation date (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    resDate = readDate();
+                    resDate = DateHandler.readDate(sc.nextLine());
 
                     if (resDate.before(DateHandler.getTimeNow())) {
                         System.out.println ("The date have already passed...");
@@ -164,7 +162,7 @@ class RRPSSApp {
                     contactNum = sc.next();
                     System.out.print("Please input the reservation date (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    resDate = readDate();
+                    resDate = DateHandler.readDate(sc.nextLine());
 
                     if (resDate.before(DateHandler.getTimeNow())) {
                         System.out.println ("The date have already passed...");
@@ -215,7 +213,7 @@ class RRPSSApp {
                 case 6 : //Create reservation booking
                     System.out.print("Please input the reservation date arrival (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    Date reservationDate = readDate();
+                    Date reservationDate = DateHandler.readDate(sc.nextLine());
 
                     if (reservationDate.before(DateHandler.getTimeNow())) {
                         System.out.println ("The date have already passed...");
@@ -233,9 +231,12 @@ class RRPSSApp {
                         if (rev != null) {
                             System.out.println ("You cannot make another reservation with same contant number in a session...");
                         } else if (tableId != -1) {
-                            Reservation newReservation = new Reservation(reservationDate, numPax, name, contactNumber, tableId, tablesList);
-                            reservationList.getReservationList().add(newReservation);
+                            //Reservation newReservation = new Reservation(reservationDate, numPax, name, contactNumber, tableId, tablesList);
+                            //reservationList.getReservationList().add(newReservation);
+                        	reservationList.addReservation(reservationDate, numPax, name, contactNumber, tableId, tablesList);
                         } else System.out.println ("No table available for " + numPax + " pax");
+                        
+                        
                     }
                     break;
 
@@ -245,6 +246,7 @@ class RRPSSApp {
 
                     switch (ch) {
                         case 1 : // find reservation w.r.t. contact number
+                        	reservationList.printList();
                             System.out.print ("Please input the particular contact number: ");
 
                             contactNum = sc.next();
@@ -258,7 +260,7 @@ class RRPSSApp {
                             System.out.print ("Please input the date arrival (in format d/m/yyyy h:m): ");
                             sc.nextLine();
 
-                            resDate = readDate();
+                            resDate = DateHandler.readDate(sc.nextLine());
                             if (resDate.before(DateHandler.getTimeNow())) {
                                 System.out.println ("The date have already passed...");
                             } else {
@@ -277,7 +279,7 @@ class RRPSSApp {
                 case 8 : //Check table availability
                     System.out.print ("Input date (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    Date checkDate = readDate();
+                    Date checkDate = DateHandler.readDate(sc.nextLine());
 
                     if (checkDate.before(DateHandler.getTimeNow())) {
                         System.out.println ("The date have already passed...");
@@ -297,7 +299,7 @@ class RRPSSApp {
                     contactNum = sc.next();
                     System.out.print("Please input the reservation date (in format d/m/yyyy h:m): ");
                     sc.nextLine();
-                    resDate = readDate();
+                    resDate = DateHandler.readDate(sc.nextLine());
 
                     if (resDate.before(DateHandler.getTimeNow())) {
                         System.out.println ("The date have already passed...");
@@ -346,11 +348,23 @@ class RRPSSApp {
                             System.out.println ("No such choice...");
                     }
                     break;
+                case 12: //add table
+                	System.out.print("1. Check\n2. Add\nPlease input your choice: ");
+                	ch = sc.nextInt();
+                	switch(ch){
+                		case 1:
+                			tablesList.printTable();
+                			break;
+                		case 2:
+		                	System.out.println("Please input table quantity and max pax:");
+		                	tablesList.addTable(sc.nextInt(), sc.nextInt());
+		                	break;
+                	}
             }
 
             System.out.println();
             // write the data again
-            RRPSS_IO.storeData();
+            //RRPSS_IO.storeData();
         }
 
         sc.close();

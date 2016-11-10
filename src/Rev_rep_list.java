@@ -41,14 +41,14 @@ public class Rev_rep_list implements Serializable {
     * @param total The total price of the added items.
     * @param date The date of the order.
     */
-    public void addRevReport(List<Integer> menuItemIDs, List<Integer> promoSetIDs, double total, Date date) {
+    public void addRevReport(List<Integer> menuItemIDs, List<Integer> promoSetIDs, double total, Date date, Menu menu, PromoSet promoSet) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int month = calendar.get(Calendar.MONTH);
 
         if (reports[month] == null)
             reports[month] = new Rev_report();
-        reports[month].print(Menu.getInstance(), PromoSet.getInstance());
+        reports[month].print(menu, promoSet);
         reports[month].addOrder(menuItemIDs, promoSetIDs, total);
     }
 

@@ -3,7 +3,8 @@ import java.text.SimpleDateFormat;
 import java.io.Serializable;
 
 class ReservationList implements Serializable {
-    private List<Reservation> reservationList;
+
+	private List<Reservation> reservationList;
 
     private static ReservationList instance = null;
 
@@ -19,14 +20,19 @@ class ReservationList implements Serializable {
         instance = this;
     }
 
-
+    
     public List<Reservation> getReservationList() {
         if (reservationList == null)
             reservationList = new ArrayList<Reservation> ();
 
         return reservationList;
     }
-
+    
+    public void addReservation(Date reservationDate, int numberOfPax, String name, String contactNumber, int tableID, TablesList tablesList)throws Exception{
+    	getReservationList().add(new Reservation(reservationDate, numberOfPax, name, contactNumber, tableID, tablesList));
+    	System.out.println("succeed in adding");
+    }
+    
     public Reservation getReservation(Date date, String contactNumber) throws Exception{
         for (Reservation rev : getReservationList()) {
             if (rev.getContactNumber().equals(contactNumber) &&
@@ -59,5 +65,10 @@ class ReservationList implements Serializable {
                 it.remove();
             }
         }
+    }
+    
+    public void printList(){
+    	for(Reservation rev : getReservationList())
+    		rev.check();
     }
 }
