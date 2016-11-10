@@ -20,19 +20,19 @@ class ReservationList implements Serializable {
         instance = this;
     }
 
-    
+
     public List<Reservation> getReservationList() {
         if (reservationList == null)
             reservationList = new ArrayList<Reservation> ();
 
         return reservationList;
     }
-    
+
     public void addReservation(Date reservationDate, int numberOfPax, String name, String contactNumber, int tableID, TablesList tablesList)throws Exception{
     	getReservationList().add(new Reservation(reservationDate, numberOfPax, name, contactNumber, tableID, tablesList));
     	System.out.println("succeed in adding");
     }
-    
+
     public Reservation getReservation(Date date, String contactNumber) throws Exception{
         for (Reservation rev : getReservationList()) {
             if (rev.getContactNumber().equals(contactNumber) &&
@@ -61,12 +61,12 @@ class ReservationList implements Serializable {
     public void removeExpiredReservation (Date date) {
         for (Iterator <Reservation> it = getReservationList().iterator(); it.hasNext();) {
             Reservation rev = it.next();
-            if ((date.getTime() - rev.getArrivalTime().getTime()) / 1000 % 60 < 30) {
+            if ((date.getTime() - rev.getArrivalTime().getTime()) / 1000 / 60 > 30) {
                 it.remove();
             }
         }
     }
-    
+
     public void printList(){
     	for(Reservation rev : getReservationList())
     		rev.check();
